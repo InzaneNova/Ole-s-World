@@ -35,7 +35,7 @@ public class Player extends Mob {
         container.setPlayer(this);
         inventory.addItem(Item.SWORD, 2);
         inventory.addItem(Item.WOOD, 120);
-        container.addItem(Item.STONE, 53);
+        container.addItem(Item.STONE, 53); // TODO: temporary code ^^
     }
 
     public void tick() {
@@ -105,9 +105,7 @@ public class Player extends Mob {
                                 inventory.addItem(active, 1);
                             }
                             setActiveItem(Item.getItemByID(stack.getItemInStackID()));
-                            System.out.println("Safe as fuck 1");
-                            inventory.removeItemByID(stack.getItemInStackID(), 1); // fault
-                            System.out.println("Safe as fuck 2");
+                            inventory.removeSelectedItems(1);
                         }
                     }
                     moveTimer = 20;
@@ -128,7 +126,7 @@ public class Player extends Mob {
                                 container.addItem(active, 1);
                             }
                             setActiveItem(Item.getItemByID(stack.getItemInStackID()));
-                            container.removeItem(Item.getItemByID(stack.getItemInStackID()), 1);
+                            inventory.removeSelectedItems(1);
                         }
                     }
                     moveTimer = 20;
@@ -147,12 +145,10 @@ public class Player extends Mob {
                             inventory.addItem(active, 1);
                         }
                         setActiveItem(Item.getItemByID(stack.getItemInStackID()));
-                        System.out.println("Safe as fuck 1");
-                        inventory.removeItemByID(stack.getItemInStackID(), 1); // fault
-                        System.out.println("Safe as fuck 2");
+                        inventory.removeSelectedItems(1);
                     }
-                    System.out.println("Safe as fuck");
                 }
+                moveTimer = 20;
             }
         }
 
@@ -160,7 +156,7 @@ public class Player extends Mob {
             toggleOpen();
             moveTimer = 30;
             inventory.setMoveTimer(moveTimer);
-            if(container != null) {
+            if (container != null) {
                 container.setMoveTimer(moveTimer);
                 container.setFocus(false);
                 container.setPlayer(null);
@@ -251,10 +247,10 @@ public class Player extends Mob {
 
     public void toggleOpen() {
         containerOpen = !containerOpen;
-        if(containerOpen) {
+        if (containerOpen) {
             Item active = getActiveItem();
-            if(active != Item.FIST && active != null) inventory.addItem(active, 1);
-            setActiveItem(null);
+            if (active != Item.FIST && active != null) inventory.addItem(active, 1);
+            setActiveItem(Item.FIST);
         }
     }
 

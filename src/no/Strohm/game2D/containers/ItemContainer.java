@@ -122,9 +122,9 @@ public abstract class ItemContainer extends Container {
         int ID = item.getID();
         ItemStack stack;
 
-        for (int i = items.size() - 1; i <= 0; i--) {
+        for (int i = items.size() - 1; i >= 0; i--) {
             stack = items.get(i);
-            if (stack.getItemInStackID() == ID && stack.getAmount() < stack.getMaxStackSize())
+            if (stack.getItemInStackID() == ID && stack.getAmount() <= stack.getMaxStackSize())
                 return stack;
         }
         stack = new ItemStack(item);
@@ -136,9 +136,9 @@ public abstract class ItemContainer extends Container {
         int ID = item.getID();
         ItemStack stack;
 
-        for (int i = items.size() - 1; i <= 0; i--) {
+        for (int i = items.size() - 1; i >= 0; i--) {
             stack = items.get(i);
-            if (stack.getItemInStackID() == ID && stack.getAmount() < stack.getMaxStackSize())
+            if (stack.getItemInStackID() == ID && stack.getAmount() <= stack.getMaxStackSize())
                 return i;
         }
         stack = new ItemStack(item);
@@ -209,12 +209,16 @@ public abstract class ItemContainer extends Container {
         removeItem(Item.getItemByID(id), amount);
     }
 
-    public void removeItemFromIndex(int sel, int amount) {
+    private void removeItemFromIndex(int sel, int amount) {
         if(sel >= items.size()) return;
         ItemStack stack = getItemStack(sel);
         int amt = (amount <= stack.getAmount() ? amount : stack.getAmount());
         stack.removeItem(amt);
         if (stack.getAmount() <= 0) removeItemStack(stack);
+    }
+
+    public void removeSelectedItems(int amount) {
+        removeItemFromIndex(selected, amount);
     }
 
     public void removeSelectedItemStack() {
