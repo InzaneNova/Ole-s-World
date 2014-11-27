@@ -1,6 +1,7 @@
 package no.Strohm.game2D.world.tiles;
 
 import no.Strohm.game2D.graphics.Screen;
+import no.Strohm.game2D.items.Item;
 import no.Strohm.game2D.world.World;
 
 /**
@@ -67,6 +68,10 @@ public class TileTree extends Tile {
 
     public boolean solid() {
         return true;
+    }
+
+    public void onDeath() {
+        dropItem(1, 3, Item.WOOD);
     }
 
     public void die() {

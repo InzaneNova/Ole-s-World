@@ -106,10 +106,8 @@ public class TileStone extends Tile {
     }
 
     public void onDeath() {
-        int drops = random.nextInt(3) + 1; // random number between (3 and 6 included) 1 - 3
 
-        for (; drops > 0; drops--)
-            world.addEntity(new ParticleItemPickup(((pos.getX()) << 4) + (random.nextDouble() - 0.5) * 8, ((pos.getY()) << 4) + (random.nextDouble() - 0.5) * 8, world, new ItemStack(Item.STONE, 2)));
+        dropItem(1, 3, Item.STONE);
     }
 
     public void die() {

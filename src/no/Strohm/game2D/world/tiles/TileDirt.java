@@ -1,6 +1,7 @@
 package no.Strohm.game2D.world.tiles;
 
 import no.Strohm.game2D.graphics.Screen;
+import no.Strohm.game2D.items.Item;
 import no.Strohm.game2D.world.World;
 
 /**
@@ -26,5 +27,7 @@ public class TileDirt extends Tile {
     public void die() {
         super.die();
         world.setTile(holeId, pos.getX(), pos.getY());
+
+        dropItem(1, 1, Item.DIRT, 1);
     }
 }

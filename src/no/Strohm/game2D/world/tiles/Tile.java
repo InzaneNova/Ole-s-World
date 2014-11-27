@@ -1,9 +1,12 @@
 package no.Strohm.game2D.world.tiles;
 
 import no.Strohm.game2D.entity.Entity;
+import no.Strohm.game2D.entity.particles.ParticleItemPickup;
 import no.Strohm.game2D.entity.particles.ParticleText;
 import no.Strohm.game2D.graphics.Screen;
 import no.Strohm.game2D.graphics.SpriteSheet;
+import no.Strohm.game2D.items.Item;
+import no.Strohm.game2D.items.ItemStack;
 import no.Strohm.game2D.util.Vector2i;
 import no.Strohm.game2D.world.World;
 
@@ -14,6 +17,7 @@ import java.util.Random;
  */
 public abstract class Tile {
 
+    protected static final Random random = new Random();
     public static int grassId = 0;
     public static int waterId = 1;
     public static int treeId = 2;
@@ -22,11 +26,9 @@ public abstract class Tile {
     public static int dirtId = 5;
     public static int holeId = 6;
     public static int voidId = 9000;
-
     public final String tag;
     protected final Vector2i pos;
     protected final SpriteSheet sheet = SpriteSheet.tiles;
-    protected static final Random random = new Random();
     public int id;
     public Entity lastHurtByEntity = null;
     protected World world;
@@ -82,5 +84,27 @@ public abstract class Tile {
         onDeath();
     }
 
-    public void onDeath() {}
+    public void dropItem(int minDrops, int maxDrops, Item item, int amt) {
+        int drops = minDrops;
+
+        if (minDrops != maxDrops) {
+            if (minDrops > maxDrops) {
+                int tmpd = minDrops;
+                minDrops = maxDrops;
+                maxDrops = tmpd;
+            }
+
+            drops = random.nextInt(Math.abs(maxDrops - minDrops)) + minDrops; // random number between (3 and 6 included) 1 - 3
+        }
+
+        for (; drops > 0; drops--)
+            world.addEntity(new ParticleItemPickup(((pos.getX()) << 4) + (random.nextDouble() - 0.5) * 8, ((pos.getY()) << 4) + (random.nextDouble() - 0.5) * 8, world, new ItemStack(item, amt)));
+    }
+
+    public void dropItem(int minDrops, int maxDrops, Item item) {
+        dropItem(minDrops, maxDrops, item, 2);
+    }
+
+    public void onDeath() {
+    }
 }

@@ -21,6 +21,7 @@ public abstract class StateMenu extends State {
         this.selectionCount = selectionCount;
     }
 
+    //use -1 if you want the default color.
     public int getColor(int sel) {
         return (selected == sel && anim % colInterval < colInterval / 2 ? col2 : col1);
     }

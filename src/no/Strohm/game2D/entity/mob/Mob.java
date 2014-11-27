@@ -13,10 +13,10 @@ import no.Strohm.game2D.world.World;
  */
 public abstract class Mob extends Entity {
 
-    protected final int dirUp = 0;
-    protected final int dirRight = 1;
-    protected final int dirDown = 2;
-    protected final int dirLeft = 3;
+    public static final int dirUp = 0;
+    public static final int dirRight = 1;
+    public static final int dirDown = 2;
+    public static final int dirLeft = 3;
 
     private int sizeX;
     private int sizeY;
@@ -31,7 +31,7 @@ public abstract class Mob extends Entity {
     protected int invincibleTimer = 5;
     private Entity lastHurtByEntity;
 
-    private Item activeItem = null;
+    private Item activeItem = Item.FIST;
 
     public Mob(int x, int y, World world, String tag, int attackSpeed, double speed, Vector2i size, Vector2i mid) {
         super(x, y, world, SpriteSheet.mobs, tag + ".mob");
@@ -96,11 +96,15 @@ public abstract class Mob extends Entity {
 
     public void setActiveItem(Item item) {
         System.out.println("Set Item");
+        if(item == null) {
+            activeItem = Item.FIST;
+        }
+        if (!(item instanceof Usable)) return;
         activeItem = item;
     }
 
     public Item getActiveItem() {
-        return (activeItem != null ? activeItem : Item.FIST);
+        return activeItem;
     }
 
     public void use() {
@@ -108,4 +112,9 @@ public abstract class Mob extends Entity {
         if(!(active instanceof Usable)) return;
         ((Usable) active).use(this, world);
     }
+
+    public Stats getStats() {
+        return stats;
+    }
+
 }

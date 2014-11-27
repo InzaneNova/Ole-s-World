@@ -1,9 +1,6 @@
 package no.Strohm.game2D.items;
 
-import no.Strohm.game2D.items.itemList.ItemFist;
-import no.Strohm.game2D.items.itemList.ItemStone;
-import no.Strohm.game2D.items.itemList.ItemSwordIron;
-import no.Strohm.game2D.items.itemList.ItemWood;
+import no.Strohm.game2D.items.itemList.*;
 
 /**
  * Created by Ole on 25/01/14.
@@ -19,8 +16,9 @@ public class Item {
 
     public static final Item WOOD = new ItemWood(0);
     public static final Item STONE = new ItemStone(1);
-    public static final Item SWORD = new ItemSwordIron(2);
+    public static final Item IRON_SWORD = new ItemSwordIron(2);
     public static final Item FIST = new ItemFist(3);
+    public static final Item DIRT = new ItemDirt(4);
 
     public Item(int ID, String tag, int iconX, int iconY, int maxStackSize) {
         this.ID = ID;

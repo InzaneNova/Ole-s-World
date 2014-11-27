@@ -159,7 +159,7 @@ public abstract class ItemContainer extends Container {
     }
 
     public void addItem(Item item, int amount) {
-        if(amount == 0 || item.getMaxStackSize() == 0) return;
+        if (amount == 0 || item.getMaxStackSize() == 0) return;
         int amt = amount;
 
         ItemStack stack;
@@ -182,7 +182,7 @@ public abstract class ItemContainer extends Container {
     }
 
     public void removeItem(Item item, int amount) {
-        if(amount <= 0 || item.getMaxStackSize() == 0) return;
+        if (amount <= 0 || item.getMaxStackSize() == 0) return;
         int totalAmount = getItemAmount(item);
         int amt = (amount <= totalAmount ? amount : totalAmount);
 
@@ -210,7 +210,7 @@ public abstract class ItemContainer extends Container {
     }
 
     private void removeItemFromIndex(int sel, int amount) {
-        if(sel >= items.size()) return;
+        if (sel >= items.size()) return;
         ItemStack stack = getItemStack(sel);
         int amt = (amount <= stack.getAmount() ? amount : stack.getAmount());
         stack.removeItem(amt);

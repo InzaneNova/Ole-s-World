@@ -30,6 +30,6 @@ public class TileHole extends Tile {
     }
 
     public boolean solid() {
-        return true;
+        return false;
     }
 }

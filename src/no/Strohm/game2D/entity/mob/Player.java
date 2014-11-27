@@ -31,11 +31,11 @@ public class Player extends Mob {
         super(x + 8, y + 8, world, "player", 40, 1, new Vector2i(11, 8), new Vector2i(6, 2));
         this.input = input;
         this.inventory = new Inventory(this);
-        this.container = new ChestContainer();
+        this.container = new ChestContainer(); // TODO: temporary code, START
         container.setPlayer(this);
-        inventory.addItem(Item.SWORD, 2);
+        inventory.addItem(Item.IRON_SWORD, 2);
         inventory.addItem(Item.WOOD, 120);
-        container.addItem(Item.STONE, 53); // TODO: temporary code ^^
+        container.addItem(Item.STONE, 53); // TODO: temporary code, END
     }
 
     public void tick() {
@@ -152,7 +152,7 @@ public class Player extends Mob {
             }
         }
 
-        if (input.escape) {
+        if (input.use && moveTimer <= 0) {
             toggleOpen();
             moveTimer = 30;
             inventory.setMoveTimer(moveTimer);
@@ -229,16 +229,8 @@ public class Player extends Mob {
             steppedOn.getHurt(this, stats.getDamage());
             return;
         }
-        int offs = 12;
-        if (dir == 0) {
-            world.getTile(((int) pos.getX() >> 4), (((int) pos.getY() - offs) >> 4)).getHurt(this, stats.getDamage());
-        } else if (dir == 1) {
-            world.getTile(((int) pos.getX() + offs) >> 4, (int) pos.getY() >> 4).getHurt(this, stats.getDamage());
-        } else if (dir == 2) {
-            world.getTile(((int) pos.getX() >> 4), ((int) pos.getY() + offs) >> 4).getHurt(this, stats.getDamage());
-        } else if (dir == 3) {
-            world.getTile(((int) pos.getX() - offs) >> 4, (int) pos.getY() >> 4).getHurt(this, stats.getDamage());
-        }
+
+        ((Usable) getActiveItem()).use(this, world);
     }
 
     private void openInv() {
@@ -246,6 +238,7 @@ public class Player extends Mob {
     }
 
     public void toggleOpen() {
+        if(moveTimer > 0) return;
         containerOpen = !containerOpen;
         if (containerOpen) {
             Item active = getActiveItem();
