@@ -1,0 +1,19 @@
+package no.Strohm.game2D.world.tiles;
+
+public class OnlinePlayers {
+
+    playerManagment playerManager;
+
+    public OnlinePlayers(){
+        playerManager  = new playerManagment();
+        playerManager.start();
+    }
+}
+class playerManagment extends Thread{
+    public playerManagment(){
+
+    }
+    public void run() {
+
+    }
+}
