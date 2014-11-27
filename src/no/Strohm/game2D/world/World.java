@@ -28,8 +28,12 @@ public abstract class World {
     Random r;
     private List<Entity> entities = new ArrayList<Entity>();
     private Spawner spawner;
+    public static OnlinePlayers onlinePlayers[];
 
     public World(int width, int height, InputHandler input) {
+        if(!OnlinePlayers.serverOn){
+            onlinePlayers = new OnlinePlayers[0];
+        }
         this.width = width;
         this.height = height;
         tiles = new Tile[height][width];
@@ -187,6 +191,12 @@ public abstract class World {
 
         for (Player p : players) {
             p.render(screen);
+        }
+        
+        for(int i = 0; i < onlinePlayers.length; i++){
+            if(onlinePlayers[i] != null){
+                onlinePlayers[i].render();
+            }
         }
     }
 
