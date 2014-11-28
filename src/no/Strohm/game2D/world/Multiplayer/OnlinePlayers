@@ -1,0 +1,24 @@
+package no.Strohm.game2D.world.Multiplayer;
+
+public class OnlinePlayers {
+    
+    public static boolean serverOn = false;
+
+    playerManagment playerManager;
+
+    public OnlinePlayers(){
+        playerManager  = new playerManagment();
+        playerManager.start();
+    }
+
+    public void render() {
+    }
+}
+class playerManagment extends Thread{
+    public playerManagment(){
+
+    }
+    public void run() {
+
+    }
+}
