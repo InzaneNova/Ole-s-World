@@ -12,74 +12,74 @@ import java.util.List;
  */
 public abstract class State {
 
-    private static List<State> states = new ArrayList<State>();
-    private static int curState = 0;
-    public static int lastState = 0;
-    public int statePos;
-    protected SpriteSheet sheet = SpriteSheet.effects;
+	public static final int startId = 0;
+	public static final int gameId = 1;
+	public static final int pauseId = 2;
+	public static final int instructionsId = 3;
+	public static final int aboutId = 4;
+	public static final int optionsId = 5;
+	public static final int exitId = 6;
+	public static final int multiplayerId = 7;
+	public static int lastState = 0;
+	private static List<State> states = new ArrayList<State>();
+	private static int curState = 0;
+	public int statePos;
+	protected SpriteSheet sheet = SpriteSheet.effects;
+	protected InputHandler input;
+	private int id;
 
-    private int id;
-    protected InputHandler input;
+	public State(int id, InputHandler input) {
+		this.id = id;
+		this.input = input;
+		addState(this);
+	}
 
-    public static final int startId = 0;
-    public static final int gameId = 1;
-    public static final int pauseId = 2;
-    public static final int instructionsId = 3;
-    public static final int aboutId = 4;
-    public static final int optionsId = 5;
-    public static final int exitId = 6;
+	public static void init(InputHandler input) {
+		new StateMenuMain(input);
+		new StateGame(input);
+		new StateMenuPause(input);
+		new StateMenuInstructions(input);
+		new StateMenuAbout(input);
+		new StateMenuOptions(input);
+		new StateMenuExit(input);
+		new StateMenuMultiplayer(input);
+	}
 
-    public State(int id, InputHandler input) {
-        this.id = id;
-        this.input = input;
-        addState(this);
-    }
+	public static void addState(State state) {
+		state.statePos = states.size();
+		states.add(state);
+	}
 
-    public static void init(InputHandler input) {
-        new StateMenuMain(input);
-        new StateGame(input);
-        new StateMenuPause(input);
-        new StateMenuInstructions(input);
-        new StateMenuAbout(input);
-        new StateMenuOptions(input);
-        new StateMenuExit(input);
-    }
+	public static void setState(int id) {
+		for (int i = 0; i < getStatesLength(); i++) {
+			State state = states.get(i);
+			if (state.id == id) {
+				lastState = curState;
+				curState = i;
+				return;
+			}
+		}
+		System.out.println("Couldn't locate State with ID: " + id);
+	}
 
-    public static void addState(State state) {
-        state.statePos = states.size();
-        states.add(state);
-    }
+	public static State getCurState() {
+		return states.get(curState);
+	}
 
-    public abstract void tick();
+	public static int getCurStateID() {
+		return curState;
+	}
 
-    public abstract void render(Screen screen);
+	public static State getState(int index) {
+		return states.get(index);
+	}
 
-    public static void setState(int id) {
-        for (int i = 0; i < getStatesLength(); i++) {
-            State state = states.get(i);
-            if (state.id == id) {
-                lastState = curState;
-                curState = i;
-                return;
-            }
-        }
-        System.out.println("Couldn't locate State with ID: " + id);
-    }
+	public static int getStatesLength() {
+		return states.size();
+	}
 
-    public static State getCurState() {
-        return states.get(curState);
-    }
+	public abstract void tick();
 
-    public static int getCurStateID() {
-        return curState;
-    }
-
-    public static State getState(int index) {
-        return states.get(index);
-    }
-
-    public static int getStatesLength() {
-        return states.size();
-    }
+	public abstract void render(Screen screen);
 
 }

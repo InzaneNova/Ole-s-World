@@ -9,36 +9,43 @@ import no.Strohm.game2D.graphics.Screen;
  */
 public class StateMenuMain extends StateMenu {
 
-    private int textPosX = 50;
-    private int textPosY = 100;
+	private static String[] options = new String[]{
+			"Play Game",
+			"Multiplayer",
+			"Instructions",
+			"About",
+			"Exit"
+	};
 
-    public StateMenuMain(InputHandler input) {
-        super(4, startId, input);
-    }
+	public StateMenuMain(InputHandler input) {
+		super(options.length, startId, input);
+	}
 
-    protected void press() {
-        switch (selected) {
-            case 0:
-                setState(gameId);
-                break;
-            case 1:
-                setState(instructionsId);
-                break;
-            case 2:
-                setState(aboutId);
-                break;
-            case 3:
-                setState(exitId);
-                break;
-        }
-    }
+	protected void press() {
+		switch (selected) {
+			case 0:
+				setState(gameId);
+				break;
+			case 1:
+				setState(multiplayerId);
+				break;
+			case 2:
+				setState(instructionsId);
+				break;
+			case 3:
+				setState(aboutId);
+				break;
+			case 4:
+				setState(exitId);
+				break;
+		}
+	}
 
-    public void render(Screen screen) {
-        screen.renderArea(0x00A9FF, 0, screen.w, 0, screen.h, false);
-        screen.renderText(Game.TITLE, (screen.w - 9 * 8) / 2, 50, 0xFF0000, false);
-        screen.renderText("Play Game", textPosX, textPosY, getColor(0), false);
-        screen.renderText("Instructions", textPosX, textPosY + 10, getColor(1), false);
-        screen.renderText("About", textPosX, textPosY + 20, getColor(2), false);
-        screen.renderText("Exit", textPosX, textPosY + 30, getColor(3), false);
-    }
+	public void render(Screen screen) {
+		screen.renderArea(0x00A9FF, 0, screen.w, 0, screen.h, false);
+		screen.renderText(Game.TITLE, (screen.w - Game.TITLE.length() * 8) / 2, 50, 0xFF0000, false);
+		for (int i = 0; i < options.length; i++) {
+			screen.renderText(options[i], (screen.w - options[i].length() * 8) / 2, screen.h / 2 - 15 + (i * 10), getColor(i), false);
+		}
+	}
 }

@@ -15,118 +15,115 @@ import java.awt.image.DataBufferInt;
  */
 public class Game extends Canvas implements Runnable {
 
-    public static final String TITLE = "Ole's World";
-    public static int SCALE = 4;
-    public static int WIDTH = 1280 / SCALE;
-    public static int HEIGHT = (WIDTH / 16) * 10;
-    private Dimension d = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
+	public static final String TITLE = "Ole's World";
+	public static int SCALE = 4;
+	public static int WIDTH = 1280 / SCALE;
+	public static int HEIGHT = (WIDTH / 16) * 10;
+	private Dimension d = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
+	private BufferedImage img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+	private static boolean running = false;
+	private JFrame frame;
+	private InputHandler input;
+	private Screen screen;
+	private int[] pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
 
-    private JFrame frame;
-    private InputHandler input;
-    private Screen screen;
+	public static void main(String[] args) {
+		Game game = new Game();
+		game.setPreferredSize(game.d);
+		game.setMinimumSize(game.d);
+		game.setMaximumSize(game.d);
 
-    private BufferedImage img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-    private int[] pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
+		game.frame = new JFrame(Game.TITLE);
+		game.frame.setUndecorated(true);
+		game.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		game.frame.setResizable(false);
+		game.frame.add(game);
+		game.frame.pack();
+		game.frame.setLocationRelativeTo(null);
+		game.frame.setVisible(true);
 
-    private static boolean running = false;
+		game.start();
+	}
 
-    public static void main(String[] args) {
-        Game game = new Game();
-        game.setPreferredSize(game.d);
-        game.setMinimumSize(game.d);
-        game.setMaximumSize(game.d);
+	public static void stop() {
+		running = false;
+	}
 
-        game.frame = new JFrame(Game.TITLE);
-        game.frame.setUndecorated(true);
-        game.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        game.frame.setResizable(false);
-        game.frame.add(game);
-        game.frame.pack();
-        game.frame.setLocationRelativeTo(null);
-        game.frame.setVisible(true);
+	public synchronized void start() {
+		running = true;
+		input = new InputHandler();
+		screen = new Screen(WIDTH, HEIGHT);
 
-        game.start();
-    }
+		State.init(input);
 
-    public static void stop() {
-        running = false;
-    }
+		addKeyListener(input);
+		new Thread(this).start();
+	}
 
-    public synchronized void start() {
-        running = true;
-        input = new InputHandler();
-        screen = new Screen(WIDTH, HEIGHT);
+	public void run() {
+		long lastTime = System.nanoTime();
+		long timer = System.currentTimeMillis();
+		double ns = 1000000000.0 / 60.0;
+		double unprocessed = 0;
+		int ticks = 0;
+		int frames = 0;
 
-        State.init(input);
+		requestFocus();
+		while (running) {
+			long now = System.nanoTime();
+			unprocessed += (now - lastTime) / ns;
+			lastTime = now;
+			while (unprocessed >= 1) {
+				tick();
+				ticks++;
+				unprocessed--;
+			}
+			{
+				render();
+				frames++;
+			}
+			if (System.currentTimeMillis() - timer > 1000) {
+				timer += 1000;
+				FPS.ticks = ticks;
+				FPS.frames = frames;
+				ticks = 0;
+				frames = 0;
+			}
+		}
 
-        addKeyListener(input);
-        new Thread(this).start();
-    }
+		screen.renderArea(0x00A9FF, 0, screen.w, 0, screen.h, false);
+		screen.renderText("Exiting Game!", 50, (HEIGHT - 8) / 2, 0, false);
+		screen.copy(pixels);
+		getGraphics().drawImage(img, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.exit(0);
 
-    public void run() {
-        long lastTime = System.nanoTime();
-        long timer = System.currentTimeMillis();
-        double ns = 1000000000.0 / 60.0;
-        double unprocessed = 0;
-        int ticks = 0;
-        int frames = 0;
+	}
 
-        requestFocus();
-        while (running) {
-            long now = System.nanoTime();
-            unprocessed += (now - lastTime) / ns;
-            lastTime = now;
-            while (unprocessed >= 1) {
-                tick();
-                ticks++;
-                unprocessed--;
-            }
-            {
-                render();
-                frames++;
-            }
-            if (System.currentTimeMillis() - timer > 1000) {
-                timer += 1000;
-                FPS.ticks = ticks;
-                FPS.frames = frames;
-                ticks = 0;
-                frames = 0;
-            }
-        }
+	private void tick() {
+		input.tick();
+		State.getCurState().tick();
+	}
 
-        screen.renderArea(0x00A9FF, 0, screen.w, 0, screen.h, false);
-        screen.renderText("Exiting Game!", 50, (HEIGHT - 8) / 2, 0, false);
-        screen.copy(pixels);
-        getGraphics().drawImage(img, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.exit(0);
+	private void render() {
+		BufferStrategy bs = getBufferStrategy();
+		if (bs == null) {
+			createBufferStrategy(2);
+			return;
+		}
 
-    }
+		State.getCurState().render(screen);
 
-    private void tick() {
-        input.tick();
-        State.getCurState().tick();
-    }
+		screen.copy(pixels);
 
-    private void render() {
-        BufferStrategy bs = getBufferStrategy();
-        if (bs == null) {
-            createBufferStrategy(2);
-            return;
-        }
-
-        State.getCurState().render(screen);
-
-        screen.copy(pixels);
-
-        Graphics g;
-        g = bs.getDrawGraphics();
-        g.drawImage(img, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
-        g.dispose();
-        bs.show();
-    }
+		Graphics g;
+		g = bs.getDrawGraphics();
+		g.drawImage(img, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
+		g.dispose();
+		bs.show();
+	}
 }
