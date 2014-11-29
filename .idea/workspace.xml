@@ -143,13 +143,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OnlinePlayers.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/no/Strohm/game2D/world/Multiplayer/OnlinePlayers.java">
+      <file leaf-file-name="World.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/no/Strohm/game2D/world/World.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.25982532" vertical-offset="0" max-vertical-offset="916">
-              <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.9257642" vertical-offset="2382" max-vertical-offset="3434">
+              <caret line="198" column="69" selection-start-line="198" selection-start-column="69" selection-end-line="198" selection-end-column="69" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#952#960#0" expanded="true" />
+                <element signature="e#2023#2030#0" expanded="true" />
+                <element signature="e#2396#2404#0" expanded="true" />
+                <element signature="e#2629#2637#0" expanded="true" />
+                <element signature="e#3218#3226#0" expanded="true" />
+                <element signature="e#4449#4457#0" expanded="true" />
+                <element signature="e#5229#5237#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -196,7 +203,6 @@
         <option value="$PROJECT_DIR$/Java Game Server/Java Game Server.iml" />
         <option value="$PROJECT_DIR$/src/no/Strohm/game2D/items/ItemStack.java" />
         <option value="$PROJECT_DIR$/src/no/Strohm/game2D/entity/particles/ParticleText.java" />
-        <option value="$PROJECT_DIR$/src/no/Strohm/game2D/world/World.java" />
         <option value="$PROJECT_DIR$/src/no/Strohm/game2D/entity/particles/ParticleItemPickup.java" />
         <option value="$PROJECT_DIR$/src/no/Strohm/game2D/items/interfaces/Usable.java" />
         <option value="$PROJECT_DIR$/../GUI Training/src/gui/training1/state/State.java" />
@@ -236,6 +242,7 @@
         <option value="$PROJECT_DIR$/src/no/Strohm/game2D/state/StateMenuOptions.java" />
         <option value="$PROJECT_DIR$/src/no/Strohm/game2D/state/StateMenuExit.java" />
         <option value="$PROJECT_DIR$/src/no/Strohm/game2D/world/Multiplayer/OnlinePlayers.java" />
+        <option value="$PROJECT_DIR$/src/no/Strohm/game2D/world/World.java" />
       </list>
     </option>
   </component>
@@ -681,7 +688,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -824,13 +831,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
           <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/no/Strohm/game2D/world/World.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="261" max-vertical-offset="2975">
-          <caret line="43" column="86" selection-start-line="43" selection-start-column="86" selection-end-line="43" selection-end-column="86" />
         </state>
       </provider>
     </entry>
@@ -1057,14 +1057,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/no/Strohm/game2D/state/StateMenuPause.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="850">
-          <caret line="16" column="42" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/no/Strohm/game2D/Game.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="476" max-vertical-offset="2295">
@@ -1103,6 +1095,31 @@
           <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/no/Strohm/game2D/state/StateMenuPause.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="850">
+          <caret line="16" column="42" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/no/Strohm/game2D/world/World.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9257642" vertical-offset="2382" max-vertical-offset="3434">
+          <caret line="198" column="69" selection-start-line="198" selection-start-column="69" selection-end-line="198" selection-end-column="69" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#952#960#0" expanded="true" />
+            <element signature="e#2023#2030#0" expanded="true" />
+            <element signature="e#2396#2404#0" expanded="true" />
+            <element signature="e#2629#2637#0" expanded="true" />
+            <element signature="e#3218#3226#0" expanded="true" />
+            <element signature="e#4449#4457#0" expanded="true" />
+            <element signature="e#5229#5237#0" expanded="true" />
           </folding>
         </state>
       </provider>
