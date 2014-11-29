@@ -194,9 +194,9 @@ public abstract class World {
 			p.render(screen);
 		}
 
-		for (int i = 0; i < onlinePlayers.length; i++) {
-			if (onlinePlayers[i] != null) {
-				onlinePlayers[i].render(screen); // Her elias
+		for (OnlinePlayers op : onlinePlayers) {
+			if (op != null) {
+				op.render(screen); // Her elias
 			}
 		}
 	}
