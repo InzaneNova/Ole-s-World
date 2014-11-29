@@ -6,7 +6,7 @@ import no.Strohm.game2D.graphics.SpriteSheet;
 public class OnlinePlayers {
 
 	public static boolean serverOn = false;
-	public xPos = 20, yPos = 20;
+	public int xPos = 20, yPos = 20;
 	
 	playerManagement playerManager;
 
