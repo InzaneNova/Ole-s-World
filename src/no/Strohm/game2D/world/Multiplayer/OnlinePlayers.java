@@ -6,7 +6,8 @@ import no.Strohm.game2D.graphics.SpriteSheet;
 public class OnlinePlayers {
 
 	public static boolean serverOn = false;
-
+	public xPos = 20, yPos = 20;
+	
 	playerManagement playerManager;
 
 	public OnlinePlayers() {
@@ -14,7 +15,7 @@ public class OnlinePlayers {
 		playerManager.start();
 	}
 
-	public void render(Screen screen, int xPos, int yPos) { // WIP
+	public void render(Screen screen) { // WIP
 		int xx = xPos - 8;
 		int yy = yPos - 8;
 		screen.render(SpriteSheet.mobs, 0, 0, 8, xx, yy, true, 0);
