@@ -2,6 +2,7 @@ package no.Strohm.game2D.state;
 
 import no.Strohm.game2D.Game;
 import no.Strohm.game2D.InputHandler;
+import no.Strohm.game2D.Multiplayer.Server;
 import no.Strohm.game2D.graphics.Screen;
 
 /**
@@ -24,10 +25,9 @@ public class StateMenuMultiplayer extends StateMenu {
 	protected void press() {
 		switch (selected) {
 			case 0:
-				//Join Server
 				break;
 			case 1:
-				//Start Server
+				new Server(1999);
 				break;
 			case 2:
 				setState(lastState);
