@@ -27,7 +27,7 @@ public class StateMenuMultiplayer extends StateMenu {
 			case 0:
 				break;
 			case 1:
-				new Server(1999);
+				new Server(1999, 16);
 				break;
 			case 2:
 				setState(lastState);

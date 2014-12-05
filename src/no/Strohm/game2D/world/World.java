@@ -11,9 +11,9 @@ import no.Strohm.game2D.graphics.Screen;
 import no.Strohm.game2D.items.Item;
 import no.Strohm.game2D.items.ItemStack;
 import no.Strohm.game2D.util.Vector2i;
-import no.Strohm.game2D.world.Multiplayer.OnlinePlayers;
 import no.Strohm.game2D.world.tiles.Tile;
 import no.Strohm.game2D.world.tiles.TileVoid;
+import no.Strohm.game2D.Multiplayer.OnlinePlayers;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package no.Strohm.game2D.world.Multiplayer;
+package no.Strohm.game2D.Multiplayer;
 
 import no.Strohm.game2D.graphics.Screen;
 import no.Strohm.game2D.graphics.SpriteSheet;
