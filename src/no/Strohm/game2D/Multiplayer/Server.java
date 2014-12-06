@@ -19,12 +19,6 @@ public class Server extends Thread{
     public static ServerManager serverManager[];
 
     public Server(int port, int antPlayers) throws Exception{
-        try {
-            String ip = null;
-            ip = Inet4Address.getLocalHost().getHostAddress();
-            JOptionPane.showMessageDialog(null,"Your local ip is " + ip);
-        } catch (UnknownHostException e) {
-        }
         try{
             serverSocket = new ServerSocket(port);
             serverManager = new ServerManager[antPlayers];
