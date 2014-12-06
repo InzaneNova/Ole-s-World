@@ -2,6 +2,7 @@ package no.Strohm.game2D.Multiplayer;
 
 import no.Strohm.game2D.Game;
 
+import javax.swing.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class Server extends Thread{
         try {
             String ip = null;
             ip = Inet4Address.getLocalHost().getHostAddress();
-            System.out.println( "Your local ip is " + ip);
+            JOptionPane.showMessageDialog(null,"Your local ip is " + ip);
         } catch (UnknownHostException e) {
         }
         try{
@@ -77,11 +78,13 @@ public class Server extends Thread{
 
     public static boolean testGameTag(String gameTag){
         for(int i = 0; i < serverManager.length; i++){
-            if(gameTag.equals(serverManager[i].gameTag)){
-                return true;
+            if(serverManager[i] != null) {
+                if (gameTag.equals(serverManager[i].gameTag)) {
+                    return false;
+                }
             }
         }
-        return false;
+        return true;
     }
 
 }class ServerManager extends Thread{
@@ -107,9 +110,11 @@ public class Server extends Thread{
         try {
             if(dataInputStream.readUTF().equals(Game.version)){
                 dataOutputStream.writeUTF("version ok");
-                gameTag = dataInputStream.readUTF();
-                if(Server.testGameTag(gameTag)){
+                String gameTagBuffer;
+                gameTagBuffer = dataInputStream.readUTF();
+                if(Server.testGameTag(gameTagBuffer)){
                     dataOutputStream.writeUTF("game tag ok");
+                    gameTag = gameTagBuffer;
                     System.out.println("SERVER: Successfully connected to " + gameTag + " on ip: " + socket.getInetAddress());
                     while(loop());
                 }else{
