@@ -2,6 +2,7 @@ package no.Strohm.game2D.state;
 
 import no.Strohm.game2D.Game;
 import no.Strohm.game2D.InputHandler;
+import no.Strohm.game2D.Multiplayer.Server;
 import no.Strohm.game2D.graphics.Screen;
 
 /**
@@ -24,7 +25,11 @@ public class StateMenuMain extends StateMenu {
 	protected void press() {
 		switch (selected) {
 			case 0:
-				setState(gameId);
+                if(Server.run){
+
+                }else{
+                    setState(gameId);
+                }
 				break;
 			case 1:
 				setState(multiplayerId);
