@@ -2,7 +2,6 @@ package no.Strohm.game2D.Multiplayer;
 
 import no.Strohm.game2D.Game;
 
-import javax.swing.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -19,6 +18,12 @@ public class Server extends Thread{
     public static ServerManager serverManager[];
 
     public Server(int port, int antPlayers) throws Exception{
+        try {
+            String ip = null;
+            ip = Inet4Address.getLocalHost().getHostAddress();
+            System.out.println( "Your local ip is " + ip);
+        } catch (Exception e) {
+        }
         try{
             serverSocket = new ServerSocket(port);
             serverManager = new ServerManager[antPlayers];
