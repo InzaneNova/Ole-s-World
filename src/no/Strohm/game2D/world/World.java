@@ -24,17 +24,14 @@ import java.util.Random;
  */
 public abstract class World {
 
-	public static OnlinePlayers onlinePlayers[];
-	public final int width, height;
+	public static OnlinePlayers onlinePlayers[] = new OnlinePlayers[0];
+	public int width, height;
 	protected Tile[][] tiles;
 	Random r;
 	private List<Entity> entities = new ArrayList<Entity>();
 	private Spawner spawner;
 
 	public World(int width, int height, InputHandler input) {
-		if (!OnlinePlayers.serverOn) {
-			onlinePlayers = new OnlinePlayers[0];
-		}
 		this.width = width;
 		this.height = height;
 		tiles = new Tile[height][width];

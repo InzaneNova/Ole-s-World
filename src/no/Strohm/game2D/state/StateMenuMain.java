@@ -2,8 +2,11 @@ package no.Strohm.game2D.state;
 
 import no.Strohm.game2D.Game;
 import no.Strohm.game2D.InputHandler;
+import no.Strohm.game2D.Multiplayer.Client;
 import no.Strohm.game2D.Multiplayer.Server;
 import no.Strohm.game2D.graphics.Screen;
+
+import java.net.Inet4Address;
 
 /**
  * Created by Ole on 15/12/13.
@@ -26,7 +29,13 @@ public class StateMenuMain extends StateMenu {
 		switch (selected) {
 			case 0:
                 if(Server.run){
-
+                    try {
+                        String ip = Inet4Address.getLocalHost().getHostAddress();
+                        System.out.println("Your local ip is "+ip);
+                        new Client(ip, 1999,"Elias");
+                    } catch (Exception e) {
+                        System.out.println("Check your internet connection");
+                    }
                 }else{
                     setState(gameId);
                 }

@@ -1,5 +1,7 @@
 package no.Strohm.game2D;
 
+import no.Strohm.game2D.Multiplayer.OnlinePlayers;
+import no.Strohm.game2D.Multiplayer.Server;
 import no.Strohm.game2D.graphics.Screen;
 import no.Strohm.game2D.state.State;
 import no.Strohm.game2D.util.FPS;
@@ -16,6 +18,8 @@ import java.awt.image.DataBufferInt;
 public class Game extends Canvas implements Runnable {
 
 	public static final String TITLE = "Ole's World", version = "a1";
+    public static Server server;
+    public static boolean serverOn;
 	public static int SCALE = 4;
 	public static int WIDTH = 1280 / SCALE;
 	public static int HEIGHT = (WIDTH / 16) * 10;

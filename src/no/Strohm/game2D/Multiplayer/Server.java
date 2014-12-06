@@ -15,25 +15,32 @@ public class Server extends Thread{
     public boolean serverFull = false;
     public static ServerManager serverManager[];
 
-    public Server(int port, int antPlayers){
+    public Server(int port, int antPlayers) throws Exception{
         try{
             serverSocket = new ServerSocket(port);
             serverManager = new ServerManager[antPlayers];
+            System.out.println("SERVER: Successfully created server");
         }catch(Exception e){
-            System.out.println("was not abel to create server on port: " + port);
+            System.out.println("SERVER: Was not abel to create server on port: " + port);
+            throw e;
         }
-        System.out.println("Successfully created server");
     }
 
     public void run(){
         run = true;
+        System.out.println("SERVER: Started running server-loop");
         while(loop());
+        System.out.println("SERVER: Stopped running server-loop");
     }
 
     public boolean loop(){
         int csm = -1;
+        ServerManager currentConnection = null;
         for(int c = 0; c < serverManager.length; c++){
-            if(serverManager[c].empty){
+            if(serverManager[c] == null){
+                csm = c;
+                break;
+            }else if(serverManager[c].empty){
                 csm = c;
                 break;
             }
@@ -42,16 +49,20 @@ public class Server extends Thread{
             serverFull = true;
         }
         try{
-            serverManager[csm] = new ServerManager(serverSocket.accept());
+            currentConnection = new ServerManager(serverSocket.accept());
+            System.out.println("SERVER: Connecting to "+currentConnection.socket.getInetAddress()+"...");
             if(serverFull){
-                serverManager[csm].dataOutputStream.writeUTF("full");
+                System.out.println("SERVER: Server is full, could not connect");
+                currentConnection.dataOutputStream.writeUTF("full");
+                throw new Exception();
             }else{
-                serverManager[csm].dataOutputStream.writeUTF("room");
+                currentConnection.dataOutputStream.writeUTF("room");
+                currentConnection.ID = csm;
+                serverManager[csm] = currentConnection;
+                serverManager[csm].start();
             }
-            serverManager[csm].ID = csm;
-            serverManager[csm].start();
         }catch(Exception e){
-            serverManager[csm].empty = true;
+            currentConnection.empty = true;
         }
         return run;
     }
@@ -59,10 +70,10 @@ public class Server extends Thread{
     public static boolean testGameTag(String gameTag){
         for(int i = 0; i < serverManager.length; i++){
             if(gameTag.equals(serverManager[i].gameTag)){
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
 }class ServerManager extends Thread{
@@ -87,13 +98,19 @@ public class Server extends Thread{
     public void run(){
         try {
             if(dataInputStream.readUTF().equals(Game.version)){
+                dataOutputStream.writeUTF("version ok");
                 gameTag = dataInputStream.readUTF();
                 if(Server.testGameTag(gameTag)){
-                    System.out.println("Sucsessfully conected to " + gameTag + " on ip: " + socket.getInetAddress().getAddress());
+                    dataOutputStream.writeUTF("game tag ok");
+                    System.out.println("SERVER: Successfully connected to " + gameTag + " on ip: " + socket.getInetAddress());
                     while(loop());
+                }else{
+                    dataOutputStream.writeUTF("game tag taken");
+                    System.out.println("SERVER: Game tag taken");
                 }
             }else{
                 dataOutputStream.writeUTF("version outdated");
+                System.out.println("SERVER: Version outdated");
             }
         } catch (Exception e) {
         }
@@ -104,7 +121,7 @@ public class Server extends Thread{
         try {
             String message = dataInputStream.readUTF();
         } catch (IOException e) {
-            System.out.println("Dissconected from "+gameTag);
+            System.out.println("SERVER: Disconnected from "+gameTag);
             return false;
         }
         return running;
