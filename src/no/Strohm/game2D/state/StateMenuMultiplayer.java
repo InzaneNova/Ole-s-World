@@ -32,7 +32,9 @@ public class StateMenuMultiplayer extends StateMenu {
 		switch (selected) {
 			case 0:
                 try {
-                    new Client(JOptionPane.showInputDialog("Input ip"), 1999,"Elias");
+                    String gameTag = JOptionPane.showInputDialog("input game tag");
+                    String ip = JOptionPane.showInputDialog("Input ip");
+                    new Client(ip, 1999,gameTag);
                 } catch (Exception e) {
                     System.out.println("Check your internet connection");
                 }
