@@ -78,7 +78,7 @@ public class Server extends Thread{
     public static boolean testGameTag(String gameTag){
         for(int i = 0; i < serverManager.length; i++){
             if(serverManager[i] != null) {
-                if (gameTag.equals(serverManager[i].gameTag)) {
+                if (gameTag.equals(serverManager[i].gameTag) && !serverManager[i].empty) {
                     return false;
                 }
             }
