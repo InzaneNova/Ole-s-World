@@ -6,6 +6,7 @@ import no.Strohm.game2D.Multiplayer.Client;
 import no.Strohm.game2D.Multiplayer.Server;
 import no.Strohm.game2D.graphics.Screen;
 
+import javax.swing.*;
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
 
@@ -31,7 +32,7 @@ public class StateMenuMultiplayer extends StateMenu {
 			case 0:
                 try {
                     String ip = Inet4Address.getLocalHost().getHostAddress();
-                    System.out.println("Your local ip is "+ip);
+                    JOptionPane.showMessageDialog(null,"Your local ip is " + ip);
                     new Client(ip, 1999,"Elias");
                 } catch (Exception e) {
                     System.out.println("Check your internet connection");
