@@ -5,8 +5,10 @@ import no.Strohm.game2D.Game;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class Server extends Thread{
 
@@ -16,6 +18,12 @@ public class Server extends Thread{
     public static ServerManager serverManager[];
 
     public Server(int port, int antPlayers) throws Exception{
+        try {
+            String ip = null;
+            ip = Inet4Address.getLocalHost().getHostAddress();
+            System.out.println( "Your local ip is " + ip);
+        } catch (UnknownHostException e) {
+        }
         try{
             serverSocket = new ServerSocket(port);
             serverManager = new ServerManager[antPlayers];
