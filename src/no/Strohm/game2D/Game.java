@@ -13,7 +13,7 @@ import java.awt.image.DataBufferInt;
 /**
  * Created by Ole on 13/12/13.
  */
-public class Game extends Canvas implements Runnable { //test
+public class Game extends Canvas implements Runnable {
 
 	public static final String TITLE = "Ole's World";
 	public static int SCALE = 4;
