@@ -7,9 +7,7 @@ import no.Strohm.game2D.Multiplayer.Server;
 import no.Strohm.game2D.graphics.Screen;
 
 import javax.swing.*;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.awt.event.KeyEvent;
 
 /**
  * Created by Ole on 28/11/2014.
@@ -31,23 +29,13 @@ public class StateMenuMultiplayer extends StateMenu {
 	protected void press() {
 		switch (selected) {
 			case 0:
-                try {
-                    String gameTag = JOptionPane.showInputDialog("input game tag");
-                    String ip = JOptionPane.showInputDialog("Input ip");
-                    new Client(ip, 1999,gameTag);
-                } catch (Exception e) {
-                    System.out.println("Check your internet connection");
-                }
+				setState(joinServerId);
 				break;
 			case 1:
-                try {
-                    Game.server = new Server(1999, 16);
-                    Game.server.start();
-                } catch (Exception e) {
-                }
+				setState(startServerId);
                 break;
 			case 2:
-				setState(lastState);
+				setState(startId);
 				break;
 		}
 	}
