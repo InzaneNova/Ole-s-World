@@ -1,5 +1,6 @@
 package no.Strohm.game2D.state;
 
+import no.Strohm.game2D.Game;
 import no.Strohm.game2D.InputHandler;
 import no.Strohm.game2D.graphics.Screen;
 import no.Strohm.game2D.util.FPS;
@@ -14,11 +15,18 @@ import java.util.Random;
 public class StateGame extends State {
     private Random r = new Random();
     private World gameWorld;
+    private boolean first = true;
 
     public StateGame(InputHandler input) {
         super(gameId, input);
-        gameWorld = new RandomWorld(256, 256, input);
     }
+
+    public void start() {
+        if (first){
+            gameWorld = new RandomWorld(Game.mapHeight, Game.mapWidth, input);
+            first = false;
+        }
+}
 
     public void tick() {
         gameWorld.tick();

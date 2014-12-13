@@ -26,7 +26,7 @@ public abstract class World {
 
 	public static OnlinePlayers onlinePlayers[] = new OnlinePlayers[0];
 	public int width, height;
-	protected Tile[][] tiles;
+	public static Tile[][] tiles;
 	Random r;
 	private List<Entity> entities = new ArrayList<Entity>();
 	private Spawner spawner;

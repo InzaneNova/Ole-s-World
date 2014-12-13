@@ -41,8 +41,12 @@ public class StateMenuMultiplayer extends StateMenu {
 				break;
 			case 1:
                 try {
-                    Game.server = new Server(1999, 16);
+                    Game.server = new Server(1999, JOinput());
                     Game.server.start();
+                    setState(gameId);
+                    String gameTag = JOptionPane.showInputDialog("input game tag");
+                    String ip = InetAddress.getLocalHost().getHostAddress();
+                    new Client(ip, 1999,gameTag);
                 } catch (Exception e) {
                 }
                 break;
@@ -51,6 +55,17 @@ public class StateMenuMultiplayer extends StateMenu {
 				break;
 		}
 	}
+
+    public int JOinput(){
+        int output = 0;
+        while(true) {
+            try {
+                output = Integer.parseInt(JOptionPane.showInputDialog("Please input the maximum players of your server"));
+                return output;
+            } catch (Exception e) {
+            }
+        }
+    }
 
 	@Override
 	public void render(Screen screen) {

@@ -1,6 +1,8 @@
 package no.Strohm.game2D.Multiplayer;
 
 import no.Strohm.game2D.Game;
+import no.Strohm.game2D.world.World;
+import no.Strohm.game2D.world.tiles.Tile;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -16,6 +18,7 @@ public class Server extends Thread{
     public static boolean run = false;
     public boolean serverFull = false;
     public static ServerManager serverManager[];
+    public Tile[][] tiles;
 
     public Server(int port, int antPlayers) throws Exception{
         try {
@@ -28,6 +31,7 @@ public class Server extends Thread{
             serverSocket = new ServerSocket(port);
             serverManager = new ServerManager[antPlayers];
             System.out.println("SERVER: Successfully created server");
+            getTiles();
         }catch(Exception e){
             System.out.println("SERVER: Was not abel to create server on port: " + port);
             throw e;
@@ -67,7 +71,7 @@ public class Server extends Thread{
                 currentConnection.dataOutputStream.writeUTF("room");
                 currentConnection.ID = csm;
                 serverManager[csm] = currentConnection;
-                serverManager[csm].start();
+                new Thread(serverManager[csm]).start();
             }
         }catch(Exception e){
             currentConnection.empty = true;
@@ -86,7 +90,16 @@ public class Server extends Thread{
         return true;
     }
 
-}class ServerManager extends Thread{
+    public void getTiles(){
+        tiles = new Tile[Game.mapHeight][Game.mapWidth];
+        for (int y = 0; y < Game.mapWidth; y++) {
+            for (int x = 0; x < Game.mapHeight; x++) {
+                tiles[y][x] = Tile.createTile(World.tiles[y][x].id, World.tiles[y][x].getX(), World.tiles[y][x].getY(), World.tiles[y][x].getWorld());
+            }
+        }
+    }
+
+}class ServerManager implements Runnable{
 
     public Socket socket;
     public boolean empty = true, running;
@@ -115,6 +128,7 @@ public class Server extends Thread{
                     dataOutputStream.writeUTF("game tag ok");
                     gameTag = gameTagBuffer;
                     System.out.println("SERVER: Successfully connected to " + gameTag + " on ip: " + socket.getInetAddress());
+
                     while(loop());
                 }else{
                     dataOutputStream.writeUTF("game tag taken");
@@ -127,6 +141,10 @@ public class Server extends Thread{
         } catch (Exception e) {
         }
         empty = true;
+    }
+
+    public void sendMap(){
+
     }
 
     public boolean loop(){

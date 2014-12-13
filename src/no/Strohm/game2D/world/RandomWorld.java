@@ -3,9 +3,6 @@ package no.Strohm.game2D.world;
 import no.Strohm.game2D.InputHandler;
 import no.Strohm.game2D.world.tiles.Tile;
 
-/**
- * Created by Ole on 15/12/13.
- */
 public class RandomWorld extends World {
 
     public RandomWorld(int width, int height, InputHandler input) {

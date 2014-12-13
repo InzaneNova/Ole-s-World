@@ -21,7 +21,7 @@ public abstract class State {
 	public static final int exitId = 6;
 	public static final int multiplayerId = 7;
 	public static int lastState = 0;
-	private static List<State> states = new ArrayList<State>();
+	public static List<State> states = new ArrayList<State>();
 	private static int curState = 0;
 	public int statePos;
 	protected SpriteSheet sheet = SpriteSheet.effects;
@@ -55,6 +55,7 @@ public abstract class State {
 			State state = states.get(i);
 			if (state.id == id) {
 				lastState = curState;
+                states.get(i).start();
 				curState = i;
 				return;
 			}
@@ -77,6 +78,8 @@ public abstract class State {
 	public static int getStatesLength() {
 		return states.size();
 	}
+
+    public void start(){}
 
 	public abstract void tick();
 

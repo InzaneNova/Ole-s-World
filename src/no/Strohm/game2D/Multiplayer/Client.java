@@ -1,17 +1,19 @@
 package no.Strohm.game2D.Multiplayer;
 
 import no.Strohm.game2D.Game;
+import no.Strohm.game2D.world.World;
+
+import static no.Strohm.game2D.state.State.*;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.net.Socket;
 
 public class Client extends Thread{
 
     public Socket socket;
-    public DataInputStream dataInputStream;
-    public DataOutputStream dataOutputStream;
+    public static DataInputStream dataInputStream;
+    public static DataOutputStream dataOutputStream;
     public String gameTag;
     public static boolean run;
 
@@ -30,6 +32,8 @@ public class Client extends Thread{
                     if(dataInputStream.readUTF().equals("game tag ok")){
                         System.out.println("CLIENT: Game tag ok");
                         this.gameTag = gameTag;
+                        states.get(gameId).start();
+                        loadMap();
                         run = true;
                         this.start();
                     }else{
@@ -46,10 +50,21 @@ public class Client extends Thread{
         }
     }
 
-    public void run(){
-        while(run){
+    public void loadMap(){
 
+    }
+
+    public void run(){
+        try {
+            while (run) {
+                String in = dataInputStream.readUTF();
+                if(in.equals("setMapTile")){
+
+                }
+            }
+            System.out.println("CLIENT: Disconnecting");
+        }catch(Exception e){
+            System.out.println("CLIENT: Disconnecting");
         }
-        System.out.println("CLIENT: Disconnecting");
     }
 }

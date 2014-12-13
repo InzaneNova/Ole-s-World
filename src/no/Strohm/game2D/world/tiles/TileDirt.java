@@ -4,9 +4,6 @@ import no.Strohm.game2D.graphics.Screen;
 import no.Strohm.game2D.items.Item;
 import no.Strohm.game2D.world.World;
 
-/**
- * Created by Ole on 17/12/13.
- */
 public class TileDirt extends Tile {
 
 

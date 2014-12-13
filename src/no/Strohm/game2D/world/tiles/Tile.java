@@ -42,6 +42,16 @@ public abstract class Tile {
         this.tag = tag + ".tile";
     }
 
+    public World getWorld(){
+        return world;
+    }
+    public int getX(){
+        return pos.getX();
+    }
+    public int getY(){
+        return pos.getY();
+    }
+
     public static Tile createTile(int id, int x, int y, World world) {
         int xx = x;
         int yy = y;

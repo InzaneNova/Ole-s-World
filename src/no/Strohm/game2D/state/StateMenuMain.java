@@ -28,17 +28,7 @@ public class StateMenuMain extends StateMenu {
 	protected void press() {
 		switch (selected) {
 			case 0:
-                if(Server.run){
-                    try {
-                        String ip = Inet4Address.getLocalHost().getHostAddress();
-                        System.out.println("Your local ip is "+ip);
-                        new Client(ip, 1999,"Elias");
-                    } catch (Exception e) {
-                        System.out.println("Check your internet connection");
-                    }
-                }else{
-                    setState(gameId);
-                }
+                setState(gameId);
 				break;
 			case 1:
 				setState(multiplayerId);
