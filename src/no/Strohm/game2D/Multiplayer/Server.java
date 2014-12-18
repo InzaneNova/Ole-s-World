@@ -31,7 +31,6 @@ public class Server extends Thread{
             serverSocket = new ServerSocket(port);
             serverManager = new ServerManager[antPlayers];
             System.out.println("SERVER: Successfully created server");
-            getTiles();
         }catch(Exception e){
             System.out.println("SERVER: Was not abel to create server on port: " + port);
             throw e;

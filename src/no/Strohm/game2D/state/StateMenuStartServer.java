@@ -2,10 +2,12 @@ package no.Strohm.game2D.state;
 
 import no.Strohm.game2D.Game;
 import no.Strohm.game2D.InputHandler;
+import no.Strohm.game2D.Multiplayer.Client;
 import no.Strohm.game2D.Multiplayer.Server;
 import no.Strohm.game2D.graphics.Screen;
 
 import java.awt.event.KeyEvent;
+import java.net.Inet4Address;
 
 /**
  * Created by Ole on 28/11/2014.
@@ -37,6 +39,8 @@ public class StateMenuStartServer extends StateMenu {
 				try {
 					Game.server = new Server(25565, Integer.parseInt(maxPlayers));
 					Game.server.start();
+					new Client(Inet4Address.getLocalHost().getHostAddress(), 25565, gameTag);
+					setState(gameId);
 				} catch (Exception e) {
 				}
 				break;

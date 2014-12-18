@@ -1,5 +1,6 @@
 package no.Strohm.game2D.state;
 
+import jdk.internal.util.xml.impl.Input;
 import no.Strohm.game2D.InputHandler;
 import no.Strohm.game2D.graphics.Screen;
 
@@ -27,12 +28,12 @@ public abstract class StateMenu extends State {
 	}
 
 	public void tick() {
+		inputTick(input);
 		if (pressedTimer > 0) pressedTimer--;
 		int xm = 0;
 		if (input.up) xm--;
 		else if (input.down) xm++;
 		if (xm != 0) moveSelection(xm);
-
 		if (input.enter && pressedTimer <= 0) {
 			pressedTimer = 30;
 			int state = getCurStateID();
@@ -57,4 +58,6 @@ public abstract class StateMenu extends State {
 	protected abstract void press();
 
 	public abstract void render(Screen screen);
+
+	public void inputTick(InputHandler input){}
 }

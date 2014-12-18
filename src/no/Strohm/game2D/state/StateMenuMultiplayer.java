@@ -8,6 +8,7 @@ import no.Strohm.game2D.graphics.Screen;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
+import java.net.InetAddress;
 
 /**
  * Created by Ole on 28/11/2014.
@@ -32,19 +33,7 @@ public class StateMenuMultiplayer extends StateMenu {
 				setState(joinServerId);
 				break;
 			case 1:
-<<<<<<< HEAD
-                try {
-                    Game.server = new Server(1999, JOinput());
-                    Game.server.start();
-                    setState(gameId);
-                    String gameTag = JOptionPane.showInputDialog("input game tag");
-                    String ip = InetAddress.getLocalHost().getHostAddress();
-                    new Client(ip, 1999,gameTag);
-                } catch (Exception e) {
-                }
-=======
 				setState(startServerId);
->>>>>>> 68fe3581fe83b1f9285290badaefbda6a4e59aa5
                 break;
 			case 2:
 				setState(startId);

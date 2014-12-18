@@ -20,6 +20,9 @@ public abstract class State {
 	public static final int optionsId = 5;
 	public static final int exitId = 6;
 	public static final int multiplayerId = 7;
+	public static final int joinServerId = 8;
+	public static final int startServerId = 9;
+
 	public static int lastState = 0;
 	public static List<State> states = new ArrayList<State>();
 	private static int curState = 0;
@@ -43,6 +46,8 @@ public abstract class State {
 		new StateMenuOptions(input);
 		new StateMenuExit(input);
 		new StateMenuMultiplayer(input);
+		new StateMenuStartServer(input);
+		new StateMenuJoinServer(input);
 	}
 
 	public static void addState(State state) {
