@@ -38,6 +38,7 @@ public class StateMenuJoinServer extends StateMenu {
 			case 2:
 				try {
 					new Client(host, 25565, gameTag);
+					setState(gameId);
 				} catch (Exception e) {
 					System.out.println("Check your internet connection");
 				}
