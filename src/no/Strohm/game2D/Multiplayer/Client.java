@@ -62,9 +62,15 @@ public class Client extends Thread{
 
                 }
             }
+            System.out.println("CLIENT: Exiting loop");
             System.out.println("CLIENT: Disconnecting");
         }catch(Exception e){
             System.out.println("CLIENT: Disconnecting");
         }
+    }
+}class loop extends Thread{
+
+    public void run() {
+
     }
 }

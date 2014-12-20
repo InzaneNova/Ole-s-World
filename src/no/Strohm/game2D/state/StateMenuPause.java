@@ -1,5 +1,6 @@
 package no.Strohm.game2D.state;
 
+import no.Strohm.game2D.Game;
 import no.Strohm.game2D.InputHandler;
 import no.Strohm.game2D.graphics.Screen;
 
@@ -32,6 +33,7 @@ public class StateMenuPause extends StateMenu {
 				setState(instructionsId);
 				break;
 			case 3:
+                if(Game.client.run)Game.client.run = false;
 				setState(startId);
 				break;
 		}
