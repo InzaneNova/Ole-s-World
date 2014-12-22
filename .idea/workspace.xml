@@ -7,13 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="729c4c6f-783c-4e32-9d68-8f64977a818e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/no/Strohm/game2D/Multiplayer/Client.java" afterPath="$PROJECT_DIR$/src/no/Strohm/game2D/Multiplayer/Client.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/no/Strohm/game2D/Game.java" afterPath="$PROJECT_DIR$/src/no/Strohm/game2D/Game.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/no/Strohm/game2D/Multiplayer/OnlinePlayers.java" afterPath="$PROJECT_DIR$/src/no/Strohm/game2D/Multiplayer/OnlinePlayers.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/no/Strohm/game2D/entity/mob/Player.java" afterPath="$PROJECT_DIR$/src/no/Strohm/game2D/entity/mob/Player.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/no/Strohm/game2D/Multiplayer/Server.java" afterPath="$PROJECT_DIR$/src/no/Strohm/game2D/Multiplayer/Server.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/no/Strohm/game2D/world/tiles/TileDirt.java" afterPath="$PROJECT_DIR$/src/no/Strohm/game2D/world/tiles/TileDirt.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/no/Strohm/game2D/world/World.java" afterPath="$PROJECT_DIR$/src/no/Strohm/game2D/world/World.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Java Test.iws" />
@@ -83,11 +76,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Server.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Server.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/no/Strohm/game2D/Multiplayer/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-18.071428" vertical-offset="3030" max-vertical-offset="3740">
-              <caret line="220" column="37" selection-start-line="220" selection-start-column="37" selection-end-line="220" selection-end-column="37" />
+            <state vertical-scroll-proportion="0.63884676" vertical-offset="3081" max-vertical-offset="3740">
+              <caret line="218" column="0" selection-start-line="218" selection-start-column="0" selection-end-line="218" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -156,12 +149,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Game.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Game.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/no/Strohm/game2D/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.35508347" vertical-offset="310" max-vertical-offset="2193">
+            <state vertical-scroll-proportion="-8.357142" vertical-offset="310" max-vertical-offset="2193">
               <caret line="43" column="39" selection-start-line="43" selection-start-column="39" selection-end-line="43" selection-end-column="39" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SocketOutputStream.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_20/src.zip!/java/net/SocketOutputStream.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1845" max-vertical-offset="2703">
+              <caret line="152" column="0" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
+              <folding>
+                <element signature="e#4232#4233#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -171,16 +176,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-16.928572" vertical-offset="1804" max-vertical-offset="3094">
               <caret line="159" column="16" selection-start-line="159" selection-start-column="16" selection-end-line="159" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TileDirt.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/no/Strohm/game2D/world/tiles/TileDirt.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="544">
-              <caret line="29" column="54" selection-start-line="29" selection-start-column="54" selection-end-line="29" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -697,7 +692,11 @@
       <created>1419239825654</created>
       <updated>1419239825654</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="hjemme">
+      <created>1419276687769</created>
+      <updated>1419276687769</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -722,7 +721,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1" y="1" width="1918" height="1158" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295082" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -741,7 +740,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12723449" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30107528" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30107528" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Byte Code Viewer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" x="92" y="92" width="1736" height="856" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -767,7 +766,8 @@
       <TodoPanelSettings />
     </option>
     <MESSAGE value="skole" />
-    <option name="LAST_COMMIT_MESSAGE" value="skole" />
+    <MESSAGE value="hjemme" />
+    <option name="LAST_COMMIT_MESSAGE" value="hjemme" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -782,13 +782,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/no/Strohm/game2D/util/Vector2d.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="340" max-vertical-offset="1632">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/no/Strohm/game2D/util/Vector2i.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="492" max-vertical-offset="1615">
@@ -1085,14 +1078,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/no/Strohm/game2D/Multiplayer/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.071428" vertical-offset="3030" max-vertical-offset="3740">
-          <caret line="220" column="37" selection-start-line="220" selection-start-column="37" selection-end-line="220" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/no/Strohm/game2D/Multiplayer/OnlinePlayers.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.285714" vertical-offset="0" max-vertical-offset="527">
@@ -1154,8 +1139,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/no/Strohm/game2D/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35508347" vertical-offset="310" max-vertical-offset="2193">
+        <state vertical-scroll-proportion="-8.357142" vertical-offset="310" max-vertical-offset="2193">
           <caret line="43" column="39" selection-start-line="43" selection-start-column="39" selection-end-line="43" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_20/src.zip!/java/net/SocketOutputStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1845" max-vertical-offset="2703">
+          <caret line="152" column="0" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
+          <folding>
+            <element signature="e#4232#4233#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/no/Strohm/game2D/Multiplayer/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.63884676" vertical-offset="3081" max-vertical-offset="3740">
+          <caret line="218" column="0" selection-start-line="218" selection-start-column="0" selection-end-line="218" selection-end-column="0" />
           <folding />
         </state>
       </provider>
