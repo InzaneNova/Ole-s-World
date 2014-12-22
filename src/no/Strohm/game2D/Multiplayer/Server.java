@@ -30,6 +30,9 @@ public class Server extends Thread{
         try{
             serverSocket = new ServerSocket(port);
             serverManager = new ServerManager[antPlayers];
+            for(int c = 0; c < serverManager.length; c++){
+                serverManager[c] = new ServerManager();
+            }
             System.out.println("SERVER: Successfully created server");
         }catch(Exception e){
             System.out.println("SERVER: Was not abel to create server on port: " + port);
@@ -47,22 +50,24 @@ public class Server extends Thread{
     public boolean loop(){
         int csm = -1;
         ServerManager currentConnection = null;
+        try {
+            System.out.println("SERVER: Looking for new player to connect");
+            currentConnection = new ServerManager(serverSocket.accept());
+            System.out.println("SERVER: New player connected");
+        } catch (IOException e) {
+            System.out.println("SERVER: Faild to accept");
+        }
         for(int c = 0; c < serverManager.length; c++){
-            if(serverManager[c] == null){
-                csm = c;
-                break;
-            }else if(serverManager[c].empty){
+            System.out.println("SERVER: Slot "+(c+1)+" is "+(serverManager[c].running ? "running" : "not running"));
+            if(!serverManager[c].running){
                 csm = c;
                 break;
             }
         }
-        if(csm == -1){
-            serverFull = true;
-        }
+        System.out.println("SERVER: Asigned player to slot = "+(csm+1));
         try{
-            currentConnection = new ServerManager(serverSocket.accept());
-            System.out.println("SERVER: Connecting to "+currentConnection.socket.getInetAddress()+"...");
-            if(serverFull){
+            System.out.println("SERVER: Connecting to "+currentConnection.socket.getInetAddress().getHostAddress()+"...");
+            if(csm == -1){
                 System.out.println("SERVER: Server is full, could not connect");
                 currentConnection.dataOutputStream.writeUTF("full");
                 throw new Exception();
@@ -73,7 +78,7 @@ public class Server extends Thread{
                 new Thread(serverManager[csm]).start();
             }
         }catch(Exception e){
-            currentConnection.empty = true;
+            currentConnection.running = false;
         }
         return run;
     }
@@ -81,7 +86,7 @@ public class Server extends Thread{
     public static boolean testGameTag(String gameTag){
         for(int i = 0; i < serverManager.length; i++){
             if(serverManager[i] != null) {
-                if (gameTag.equals(serverManager[i].gameTag) && !serverManager[i].empty) {
+                if (gameTag.equals(serverManager[i].gameTag) && serverManager[i].running) {
                     return false;
                 }
             }
@@ -101,11 +106,13 @@ public class Server extends Thread{
 }class ServerManager implements Runnable{
 
     public Socket socket;
-    public boolean empty = true, running;
+    public boolean running = false;
     public DataInputStream dataInputStream;
     public DataOutputStream dataOutputStream;
     int ID = 0;
     public String gameTag;
+
+    public ServerManager(){}
 
     public ServerManager(Socket getSocket){
         socket = getSocket;
@@ -114,7 +121,6 @@ public class Server extends Thread{
             dataOutputStream = new DataOutputStream(socket.getOutputStream());
         } catch (IOException e) {}
         running = true;
-        empty = false;
     }
 
     public void run(){
@@ -127,7 +133,7 @@ public class Server extends Thread{
                     dataOutputStream.writeUTF("game tag ok");
                     gameTag = gameTagBuffer;
                     System.out.println("SERVER: Successfully connected to " + gameTag + " on ip: " + socket.getInetAddress());
-
+                    sendMap();
                     while(loop());
                 }else{
                     dataOutputStream.writeUTF("game tag taken");
@@ -139,11 +145,19 @@ public class Server extends Thread{
             }
         } catch (Exception e) {
         }
-        empty = true;
     }
 
     public void sendMap(){
-
+        try {
+            for (int y = 0; y < Game.mapHeight; y++) {
+                for (int x = 0; x < Game.mapWidth; x++) {
+                    dataOutputStream.writeUTF(createMapTileString(x,y,World.tiles[x][y].id));
+                    System.out.println("SERVER: Sent " + createMapTileString(x, y, World.tiles[x][y].id));
+                }
+            }
+        }catch(Exception e){
+            System.out.println("SERVER: Failed to send map");
+        }
     }
 
     public boolean loop(){
@@ -151,8 +165,30 @@ public class Server extends Thread{
             String message = dataInputStream.readUTF();
         } catch (IOException e) {
             System.out.println("SERVER: Disconnected from "+gameTag);
-            return false;
+            running = false;
+            return running;
         }
         return running;
+    }
+
+    public String createMapTileString(int x, int y, int tile){
+        return "setMapTile;"+x+";"+y+";"+tile+";";
+    }
+}class read extends Thread{
+
+    String input = "";
+
+    public read(String input){
+        this.input = input;
+    }
+
+    public void run(){
+        for(ServerManager x : Server.serverManager){
+            try {
+                x.dataOutputStream.writeUTF(input);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

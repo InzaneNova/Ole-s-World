@@ -37,14 +37,15 @@ public class StateMenuStartServer extends StateMenu {
                 break;
 			case 2:
 				try {
-					Game.server = new Server(25565, Integer.parseInt(maxPlayers));
+					Game.server = new Server(1999, Integer.parseInt(maxPlayers));
 					Game.server.start();
-					new Client(Inet4Address.getLocalHost().getHostAddress(), 25565, gameTag);
+					new Client(Inet4Address.getLocalHost().getHostAddress(), 1999, gameTag);
 					setState(gameId);
 				} catch (Exception e) {
 				}
 				break;
 			case 3:
+                Game.Online = true;
 				setState(multiplayerId);
 		}
 	}

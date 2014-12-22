@@ -33,6 +33,7 @@ public abstract class Tile {
     public Entity lastHurtByEntity = null;
     protected World world;
     protected int health;
+    public static int numberOfTiles = 7;
 
     public Tile(int id, int health, int x, int y, World world, String tag) {
         this.id = id;

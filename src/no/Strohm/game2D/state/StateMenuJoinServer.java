@@ -37,13 +37,14 @@ public class StateMenuJoinServer extends StateMenu {
                 break;
 			case 2:
 				try {
-					new Client(host, 25565, gameTag);
+					new Client((host.equals("")?"localhost":host), 1999, gameTag);
 					setState(gameId);
 				} catch (Exception e) {
 					System.out.println("Check your internet connection");
 				}
 				break;
 			case 3:
+                Game.Online = true;
 				setState(multiplayerId);
 		}
 	}
@@ -137,7 +138,7 @@ public class StateMenuJoinServer extends StateMenu {
 		switch (selected) {
 
 			case 0:
-				for (int x = 0; x < 10; x++) {
+				for (int x = 0; x < values.length; x++) {
 					if (input.clicked[checks[x]]) {
 						host += values[x];
 					}

@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public class StateGame extends State {
     private Random r = new Random();
-    private World gameWorld;
+    private static World gameWorld;
     private boolean first = true;
 
     public StateGame(InputHandler input) {
@@ -27,6 +27,9 @@ public class StateGame extends State {
             first = false;
         }
 }
+    public static World getWorld(){
+        return gameWorld;
+    }
 
     public void tick() {
         gameWorld.tick();

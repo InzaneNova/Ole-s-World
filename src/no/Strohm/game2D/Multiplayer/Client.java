@@ -1,7 +1,9 @@
 package no.Strohm.game2D.Multiplayer;
 
 import no.Strohm.game2D.Game;
+import no.Strohm.game2D.state.StateGame;
 import no.Strohm.game2D.world.World;
+import no.Strohm.game2D.world.tiles.Tile;
 
 import static no.Strohm.game2D.state.State.*;
 
@@ -31,9 +33,9 @@ public class Client extends Thread{
                     dataOutputStream.writeUTF(gameTag);
                     if(dataInputStream.readUTF().equals("game tag ok")){
                         System.out.println("CLIENT: Game tag ok");
+                        Game.client = this;
                         this.gameTag = gameTag;
                         states.get(gameId).start();
-                        loadMap();
                         run = true;
                         this.start();
                     }else{
@@ -58,9 +60,7 @@ public class Client extends Thread{
         try {
             while (run) {
                 String in = dataInputStream.readUTF();
-                if(in.equals("setMapTile")){
-
-                }
+                new input(in).start();
             }
             System.out.println("CLIENT: Exiting loop");
             System.out.println("CLIENT: Disconnecting");
@@ -68,9 +68,57 @@ public class Client extends Thread{
             System.out.println("CLIENT: Disconnecting");
         }
     }
-}class loop extends Thread{
+}class input extends Thread{
 
-    public void run() {
+    private String input;
 
+    public input(String input){
+        this.input = input;
+    }
+    public void run(){
+
+        try {
+            if(input.startsWith("setMapTile;")){
+                    int x, y, tile;
+                    input = input.substring("setMapTile;".length());
+
+                    for (int i = 0; true; i++) {
+                        if (input.startsWith(i + ";")) {
+                            y = i;
+                            input = input.substring(String.valueOf(i).length()+1);
+                            break;
+                        }
+                        if (i > Game.mapWidth) {
+                            System.out.println("CLIENT: Map width to large: "+input);
+                            throw new Exception();
+                        }
+                    }
+                    for (int i = 0; true; i++) {
+                        if (input.startsWith(i + ";")) {
+                            x = i;
+                            input = input.substring(String.valueOf(i).length()+1);
+                            break;
+                        }
+                        if (i > Game.mapHeight){
+                            System.out.println("CLIENT: Map height to large: "+input);
+                            throw new Exception();}
+                    }
+                    for (int i = 0; true; i++) {
+                        if (input.startsWith(i + ";")) {
+                            tile = i;
+                            input = input.substring(String.valueOf(i).length()+1);
+                            break;
+                        }
+                        if (i >= Tile.numberOfTiles){
+                            System.out.println("CLIENT: Map tile to large: "+input);
+                            throw new Exception();
+                        }
+                    }
+                    World.tiles[y][x] = Tile.createTile(tile, x, y, StateGame.getWorld());
+                }
+
+
+        }catch(Exception e){
+        }
     }
 }

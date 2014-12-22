@@ -4,6 +4,8 @@ import no.Strohm.game2D.Game;
 import no.Strohm.game2D.InputHandler;
 import no.Strohm.game2D.graphics.Screen;
 
+import java.io.IOException;
+
 /**
  * Created by Ole on 22/12/13.
  */
@@ -33,7 +35,12 @@ public class StateMenuPause extends StateMenu {
 				setState(instructionsId);
 				break;
 			case 3:
-                if(Game.client.run)Game.client.run = false;
+                if(Game.client.run){
+                    Game.client.run = false;
+                    try {
+                        Game.client.socket.close();
+                    } catch (IOException e) {}
+                }
 				setState(startId);
 				break;
 		}

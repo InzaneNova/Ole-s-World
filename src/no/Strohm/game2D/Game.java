@@ -21,7 +21,7 @@ public class Game extends Canvas implements Runnable {
 	public static final String TITLE = "Ole's World", version = "a1";
     public static Server server;
     public static Client client;
-    public static boolean serverOn;
+    public static boolean Online = false;
 	public static int SCALE = 4;
 	public static int WIDTH = 1280 / SCALE;
 	public static int HEIGHT = (WIDTH / 16) * 10;

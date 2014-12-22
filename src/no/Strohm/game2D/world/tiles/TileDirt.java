@@ -1,8 +1,12 @@
 package no.Strohm.game2D.world.tiles;
 
+import no.Strohm.game2D.Game;
+import no.Strohm.game2D.Multiplayer.Client;
 import no.Strohm.game2D.graphics.Screen;
 import no.Strohm.game2D.items.Item;
 import no.Strohm.game2D.world.World;
+
+import java.io.IOException;
 
 public class TileDirt extends Tile {
 
@@ -24,6 +28,13 @@ public class TileDirt extends Tile {
     public void die() {
         super.die();
         world.setTile(holeId, pos.getX(), pos.getY());
+        if(Game.Online){
+            try {
+                Client.dataOutputStream.writeUTF("setMapTile;"+pos.getX()+";"+pos.getY()+";"+id+";");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         dropItem(1, 1, Item.DIRT, 1);
     }
