@@ -193,7 +193,7 @@ public abstract class World {
 
 		for (OnlinePlayers op : onlinePlayers) {
 			if (op != null) {
-				op.render(screen); // Her elias
+				op.render(screen);
 			}
 		}
 	}

@@ -1,6 +1,7 @@
 package no.Strohm.game2D.entity.mob;
 
 import no.Strohm.game2D.InputHandler;
+import no.Strohm.game2D.Multiplayer.Client;
 import no.Strohm.game2D.containers.ChestContainer;
 import no.Strohm.game2D.containers.Inventory;
 import no.Strohm.game2D.containers.ItemContainer;
@@ -13,6 +14,8 @@ import no.Strohm.game2D.state.State;
 import no.Strohm.game2D.util.Vector2i;
 import no.Strohm.game2D.world.World;
 import no.Strohm.game2D.world.tiles.Tile;
+
+import java.io.IOException;
 
 /**
  * Created by Ole on 15/12/13.
@@ -39,6 +42,10 @@ public class Player extends Mob {
 	}
 
 	public void tick() {
+        try {
+            String pos = "setPlayerPos;"+Client.gameTag+";"+this.pos.getX()+";"+this.pos.getY()+";";
+            Client.dataOutputStream.writeUTF(pos);
+        } catch (IOException e) {}
 		if (moveTimer > 0) moveTimer--;
 		if (!containerOpen) {
 			double xm = 0;
@@ -165,7 +172,8 @@ public class Player extends Mob {
 			inventory.setFocus(true);
 			container = null;
 		}
-	}
+
+    }
 
 	public void render(Screen screen) {
 		int[] pixelX = {0, 1, 0, 1};

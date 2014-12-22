@@ -28,13 +28,6 @@ public class TileDirt extends Tile {
     public void die() {
         super.die();
         world.setTile(holeId, pos.getX(), pos.getY());
-        if(Game.Online){
-            try {
-                Client.dataOutputStream.writeUTF("setMapTile;"+pos.getX()+";"+pos.getY()+";"+id+";");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
 
         dropItem(1, 1, Item.DIRT, 1);
     }

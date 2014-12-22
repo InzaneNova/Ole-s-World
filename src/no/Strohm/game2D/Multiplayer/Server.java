@@ -134,6 +134,8 @@ public class Server extends Thread{
                     gameTag = gameTagBuffer;
                     System.out.println("SERVER: Successfully connected to " + gameTag + " on ip: " + socket.getInetAddress());
                     sendMap();
+                    sendPlayers();
+                    addPlayer();
                     while(loop());
                 }else{
                     dataOutputStream.writeUTF("game tag taken");
@@ -147,12 +149,36 @@ public class Server extends Thread{
         }
     }
 
+    private void sendPlayers() {
+        try {
+            dataOutputStream.writeUTF("setPlayerQuantity;" + Server.serverManager.length + ";");
+            for(int i = 0; i < Server.serverManager.length; i++) {
+                if(Server.serverManager[i].ID != ID && Server.serverManager[i].running) {
+                    dataOutputStream.writeUTF("setPlayer;"+Server.serverManager[i].gameTag+";");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addPlayer(){
+        for(int i = 0; i < Server.serverManager.length; i++) {
+            if(Server.serverManager[i].ID != ID && Server.serverManager[i].running) {
+                try {
+                    Server.serverManager[i].dataOutputStream.writeUTF("setPlayer;"+gameTag+";");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public void sendMap(){
         try {
             for (int y = 0; y < Game.mapHeight; y++) {
                 for (int x = 0; x < Game.mapWidth; x++) {
                     dataOutputStream.writeUTF(createMapTileString(x,y,World.tiles[x][y].id));
-                    System.out.println("SERVER: Sent " + createMapTileString(x, y, World.tiles[x][y].id));
                 }
             }
         }catch(Exception e){
@@ -163,6 +189,7 @@ public class Server extends Thread{
     public boolean loop(){
         try {
             String message = dataInputStream.readUTF();
+            new read(message, ID).start();
         } catch (IOException e) {
             System.out.println("SERVER: Disconnected from "+gameTag);
             running = false;
@@ -177,15 +204,20 @@ public class Server extends Thread{
 }class read extends Thread{
 
     String input = "";
+    int senderId = 0;
 
-    public read(String input){
+    public read(String input,int senderId){
         this.input = input;
+        this.senderId = senderId;
     }
 
     public void run(){
-        for(ServerManager x : Server.serverManager){
+        ServerManager[] players = Server.serverManager;
+        for(int i = 0; i < players.length; i++){
             try {
-                x.dataOutputStream.writeUTF(input);
+                if(players[i].running && i != senderId){
+                    players[i].dataOutputStream.writeUTF(input);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

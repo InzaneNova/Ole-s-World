@@ -16,7 +16,7 @@ public class Client extends Thread{
     public Socket socket;
     public static DataInputStream dataInputStream;
     public static DataOutputStream dataOutputStream;
-    public String gameTag;
+    public static String gameTag;
     public static boolean run;
 
     public Client(String ip, int port, String gameTag){
@@ -52,10 +52,6 @@ public class Client extends Thread{
         }
     }
 
-    public void loadMap(){
-
-    }
-
     public void run(){
         try {
             while (run) {
@@ -79,43 +75,109 @@ public class Client extends Thread{
 
         try {
             if(input.startsWith("setMapTile;")){
-                    int x, y, tile;
-                    input = input.substring("setMapTile;".length());
+                int x, y, tile;
+                input = input.substring("setMapTile;".length());
 
-                    for (int i = 0; true; i++) {
-                        if (input.startsWith(i + ";")) {
-                            y = i;
-                            input = input.substring(String.valueOf(i).length()+1);
-                            break;
-                        }
-                        if (i > Game.mapWidth) {
-                            System.out.println("CLIENT: Map width to large: "+input);
-                            throw new Exception();
-                        }
+                for (int i = 0; true; i++) {
+                    if (input.startsWith(i + ";")) {
+                        x = i;
+                        input = input.substring(String.valueOf(i).length()+1);
+                        break;
                     }
-                    for (int i = 0; true; i++) {
-                        if (input.startsWith(i + ";")) {
-                            x = i;
-                            input = input.substring(String.valueOf(i).length()+1);
-                            break;
-                        }
-                        if (i > Game.mapHeight){
-                            System.out.println("CLIENT: Map height to large: "+input);
-                            throw new Exception();}
+                    if (i > Game.mapWidth) {
+                        System.out.println("CLIENT: Map width to large: "+input);
+                        throw new Exception();
                     }
-                    for (int i = 0; true; i++) {
-                        if (input.startsWith(i + ";")) {
-                            tile = i;
-                            input = input.substring(String.valueOf(i).length()+1);
-                            break;
-                        }
-                        if (i >= Tile.numberOfTiles){
-                            System.out.println("CLIENT: Map tile to large: "+input);
-                            throw new Exception();
-                        }
-                    }
-                    World.tiles[y][x] = Tile.createTile(tile, x, y, StateGame.getWorld());
                 }
+                for (int i = 0; true; i++) {
+                    if (input.startsWith(i + ";")) {
+                        y = i;
+                        input = input.substring(String.valueOf(i).length()+1);
+                        break;
+                    }
+                    if (i > Game.mapHeight){
+                        System.out.println("CLIENT: Map height to large: "+input);
+                        throw new Exception();}
+                }
+                for (int i = 0; true; i++) {
+                    if (input.startsWith(i + ";")) {
+                        tile = i;
+                        input = input.substring(String.valueOf(i).length()+1);
+                        break;
+                    }
+                    if (i >= Tile.numberOfTiles){
+                        System.out.println("CLIENT: Map tile to large: "+input);
+                        throw new Exception();
+                    }
+                }
+                World.tiles[x][y] = Tile.createTile(tile, y, x, StateGame.getWorld());
+            }else if(input.startsWith("setPlayerQuantity;")){
+                System.out.println("CLIENT: Setteing Player Quantity");
+                input = input.substring("setPlayerQuantity;".length());
+                int number;
+                for (int i = 0; true; i++) {
+                    if (input.startsWith(i + ";")) {
+                        number = i-1;
+                        input = input.substring(String.valueOf(i).length()+1);
+                        break;
+                    }
+                }
+                World.onlinePlayers = new OnlinePlayers[number];
+            }else if(input.startsWith("setPlayer;")){
+                input = input.substring("setPlayer;".length());
+                String gameTag;
+                for (int i = 0; true; i++) {
+                    if (input.substring(i).startsWith(";")) {
+                        gameTag = input.substring(0,i);
+                        input = input.substring(gameTag.length()+1);
+                        System.out.println("CLIENT: Setteing Player named "+gameTag);
+                        break;
+                    }
+                }
+                for(int i = 0; i < World.onlinePlayers.length; i++){
+                    if(World.onlinePlayers[i] == null){
+                        World.onlinePlayers[i] = new OnlinePlayers(gameTag);
+                    }
+                }
+            }else if(input.startsWith("setPlayerPos;")){
+                input = input.substring("setPlayerPos;".length());
+                String gameTag;
+                for (int i = 0; true; i++) {
+                    if (input.substring(i).startsWith(";")) {
+                        gameTag = input.substring(0,i);
+                        input = input.substring(gameTag.length()+1);
+                        break;
+                    }
+                }
+                int x, y;
+                for (double i = 0; true; i+=0.5) {
+                    if (input.startsWith(i + ";")) {
+                        x = (int) i;
+                        input = input.substring(String.valueOf(i).length()+1);
+                        break;
+                    }
+                    if (i > Game.mapWidth*16) {
+                        System.out.println("CLIENT: Player x to heigh: "+input);
+                        throw new Exception();
+                    }
+                }
+                for (double i = 0; true; i+=0.5) {
+                    if (input.startsWith(i + ";")) {
+                        y = (int) i;
+                        input = input.substring(String.valueOf(i).length()+1);
+                        break;
+                    }
+                    if (i > Game.mapHeight*16){
+                        System.out.println("CLIENT: Player y to heigh: "+input);
+                        throw new Exception();}
+                }
+                for(int i = 0; i < World.onlinePlayers.length; i++){
+                    if(World.onlinePlayers[i] != null && World.onlinePlayers[i].gameTag.equals(gameTag)){
+                        World.onlinePlayers[i].xPos = x;
+                        World.onlinePlayers[i].yPos = y;
+                    }
+                }
+            }
 
 
         }catch(Exception e){

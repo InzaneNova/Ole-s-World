@@ -7,8 +7,11 @@ public class OnlinePlayers {
 
 	public static boolean onlineOn = false;
 	public int xPos = 20, yPos = 20;
+    public String gameTag = "";
 
-	public OnlinePlayers() {
+	public OnlinePlayers(String gameTag) {
+        this.gameTag = gameTag;
+        System.out.println("CLIENT: Online player set");
 	}
 
 	public void render(Screen screen) { // WIP

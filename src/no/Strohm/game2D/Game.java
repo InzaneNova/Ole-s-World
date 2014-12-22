@@ -25,7 +25,7 @@ public class Game extends Canvas implements Runnable {
 	public static int SCALE = 4;
 	public static int WIDTH = 1280 / SCALE;
 	public static int HEIGHT = (WIDTH / 16) * 10;
-    public static int mapHeight = 255, mapWidth = 255;
+    public static int mapHeight = 10, mapWidth = 10;
 	private Dimension d = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
 	private BufferedImage img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	private static boolean running = false;
@@ -41,7 +41,7 @@ public class Game extends Canvas implements Runnable {
 		game.setMaximumSize(game.d);
 
 		game.frame = new JFrame(Game.TITLE);
-		game.frame.setUndecorated(true);
+		game.frame.setUndecorated(false);
 		game.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		game.frame.setResizable(false);
 		game.frame.add(game);
