@@ -78,7 +78,7 @@ public class Server extends Thread{
                 new Thread(serverManager[csm]).start();
             }
         }catch(Exception e){
-            currentConnection.running = false;
+            serverManager[csm].running = false;
         }
         return run;
     }
@@ -136,6 +136,7 @@ public class Server extends Thread{
                     sendMap();
                     sendPlayers();
                     addPlayer();
+                    new ConnectionTester(socket,ID,gameTag).start();
                     while(loop());
                 }else{
                     dataOutputStream.writeUTF("game tag taken");
@@ -219,8 +220,37 @@ public class Server extends Thread{
                     players[i].dataOutputStream.writeUTF(input);
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+
             }
+        }
+    }
+}class ConnectionTester extends Thread{
+
+    private Socket socket;
+    private int ID;
+    private String gameTag;
+
+    public ConnectionTester(Socket socket, int ID, String gameTag){
+        this.socket = socket;
+        this.ID = ID;
+        this.gameTag = gameTag;
+    }
+
+    public void run(){
+        while(loop());
+        new read("deletePlayer;"+gameTag+";",ID).start();
+    }
+
+    private boolean loop(){
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if(socket.isConnected()){
+            return true;
+        }else{
+            return false;
         }
     }
 }

@@ -1,5 +1,6 @@
 package no.Strohm.game2D.entity.mob;
 
+import no.Strohm.game2D.Game;
 import no.Strohm.game2D.InputHandler;
 import no.Strohm.game2D.Multiplayer.Client;
 import no.Strohm.game2D.containers.ChestContainer;
@@ -42,10 +43,12 @@ public class Player extends Mob {
 	}
 
 	public void tick() {
-        try {
-            String pos = "setPlayerPos;"+Client.gameTag+";"+this.pos.getX()+";"+this.pos.getY()+";";
-            Client.dataOutputStream.writeUTF(pos);
-        } catch (IOException e) {}
+        if(true){
+            try {
+                String pos = "setPlayerStat;"+Client.gameTag+";"+this.pos.getX()+";"+this.pos.getY()+";"+moving+";"+anim+";"+dir+";";
+                Client.dataOutputStream.writeUTF(pos);
+            } catch (IOException e) {}
+        }
 		if (moveTimer > 0) moveTimer--;
 		if (!containerOpen) {
 			double xm = 0;

@@ -1,9 +1,12 @@
 package no.Strohm.game2D.Multiplayer;
 
+import com.sun.glass.ui.EventLoop;
 import no.Strohm.game2D.Game;
+import no.Strohm.game2D.state.State;
 import no.Strohm.game2D.state.StateGame;
 import no.Strohm.game2D.world.World;
 import no.Strohm.game2D.world.tiles.Tile;
+
 
 import static no.Strohm.game2D.state.State.*;
 
@@ -62,17 +65,19 @@ public class Client extends Thread{
             System.out.println("CLIENT: Disconnecting");
         }catch(Exception e){
             System.out.println("CLIENT: Disconnecting");
+            World.onlinePlayers = new OnlinePlayers[0];
+            no.Strohm.game2D.state.State.setState(no.Strohm.game2D.state.State.startId);
         }
     }
 }class input extends Thread{
 
     private String input;
+    public static boolean quantitySet = false;
 
     public input(String input){
         this.input = input;
     }
     public void run(){
-
         try {
             if(input.startsWith("setMapTile;")){
                 int x, y, tile;
@@ -111,7 +116,9 @@ public class Client extends Thread{
                     }
                 }
                 World.tiles[x][y] = Tile.createTile(tile, y, x, StateGame.getWorld());
-            }else if(input.startsWith("setPlayerQuantity;")){
+            }
+
+            else if(input.startsWith("setPlayerQuantity;")){
                 System.out.println("CLIENT: Setteing Player Quantity");
                 input = input.substring("setPlayerQuantity;".length());
                 int number;
@@ -123,7 +130,11 @@ public class Client extends Thread{
                     }
                 }
                 World.onlinePlayers = new OnlinePlayers[number];
+                quantitySet = true;
             }else if(input.startsWith("setPlayer;")){
+                while(!quantitySet){
+                    Thread.sleep(1000);
+                }
                 input = input.substring("setPlayer;".length());
                 String gameTag;
                 for (int i = 0; true; i++) {
@@ -137,11 +148,17 @@ public class Client extends Thread{
                 for(int i = 0; i < World.onlinePlayers.length; i++){
                     if(World.onlinePlayers[i] == null){
                         World.onlinePlayers[i] = new OnlinePlayers(gameTag);
+                        break;
                     }
                 }
-            }else if(input.startsWith("setPlayerPos;")){
-                input = input.substring("setPlayerPos;".length());
+            }else if(input.startsWith("setPlayerStat;")){
+
+                input = input.substring("setPlayerStat;".length());
                 String gameTag;
+                int anim = 0;
+                int dir = 0;
+                boolean moving = false;
+
                 for (int i = 0; true; i++) {
                     if (input.substring(i).startsWith(";")) {
                         gameTag = input.substring(0,i);
@@ -161,6 +178,7 @@ public class Client extends Thread{
                         throw new Exception();
                     }
                 }
+
                 for (double i = 0; true; i+=0.5) {
                     if (input.startsWith(i + ";")) {
                         y = (int) i;
@@ -171,10 +189,61 @@ public class Client extends Thread{
                         System.out.println("CLIENT: Player y to heigh: "+input);
                         throw new Exception();}
                 }
-                for(int i = 0; i < World.onlinePlayers.length; i++){
-                    if(World.onlinePlayers[i] != null && World.onlinePlayers[i].gameTag.equals(gameTag)){
+
+                if(input.startsWith("true;")){
+                    input = input.substring("true;".length());
+                    moving = true;
+                }else if(input.startsWith("false;")){
+                    input = input.substring("false;".length());
+                    moving = false;
+                }else{
+                    System.out.println("CLIENT: Fucked up player-stat message "+gameTag);
+                    throw new Exception();
+                }
+
+                for (int i = 0; i < 1000; i++) {
+                    if (input.startsWith(i + ";")) {
+                        anim = (int) i;
+                        input = input.substring(String.valueOf(i).length()+1);
+                        break;
+                    }
+                }
+
+                for (int i = 0; true; i++) {
+                    if (input.startsWith(i + ";")) {
+                        dir = (int) i;
+                        input = input.substring(String.valueOf(i).length()+1);
+                        break;
+                    }
+                    if (i > 3){
+                        System.out.println("CLIENT: Dir to heigh "+input);
+                        throw new Exception();}
+                }
+
+                for(int i = 0; i < World.onlinePlayers.length; i++) {
+                    if (World.onlinePlayers[i] != null && World.onlinePlayers[i].gameTag.equals(gameTag)) {
                         World.onlinePlayers[i].xPos = x;
                         World.onlinePlayers[i].yPos = y;
+                        World.onlinePlayers[i].moving = moving;
+                        World.onlinePlayers[i].anim = anim;
+                        World.onlinePlayers[i].dir = dir;
+                    }
+                }
+            }else if(input.startsWith("deletePlayer;")){
+                input = input.substring("deletePlayer;".length());
+                String gameTag;
+                for (int i = 0; true; i++) {
+                    if (input.substring(i).startsWith(";")) {
+                        gameTag = input.substring(0,i);
+                        input = input.substring(gameTag.length()+1);
+                        System.out.println("CLIENT: Deleting Player named "+gameTag);
+                        break;
+                    }
+                }
+                for(int i = 0; i < World.onlinePlayers.length; i++){
+                    if(World.onlinePlayers[i].gameTag.equals(gameTag)){
+                        World.onlinePlayers[i] = null;
+                        break;
                     }
                 }
             }
