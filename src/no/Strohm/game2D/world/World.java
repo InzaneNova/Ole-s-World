@@ -145,7 +145,7 @@ public abstract class World {
 
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < height; x++) {
-				tiles[y][x].tick();
+				getTile(x, y).tick();
 			}
 		}
 
@@ -186,15 +186,14 @@ public abstract class World {
 			else players.add((Player) e);
 		}
 
-
-		for (Player p : players) {
-			p.render(screen);
-		}
-
 		for (OnlinePlayers op : onlinePlayers) {
 			if (op != null) {
 				op.render(screen);
 			}
+		}
+
+		for (Player p : players) {
+			p.render(screen);
 		}
 	}
 
