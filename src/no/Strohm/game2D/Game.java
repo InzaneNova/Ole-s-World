@@ -18,7 +18,7 @@ import java.awt.image.DataBufferInt;
  */
 public class Game extends Canvas implements Runnable {
 
-	public static final String TITLE = "Ole's World", version = "a1";
+	public static final String TITLE = "Ole's World", version = "da1.0.2";
     public static Server server;
     public static Client client;
     public static boolean Online = false;
