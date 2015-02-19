@@ -8,22 +8,45 @@ import no.Strohm.game2D.world.World;
  */
 public class TileGrass extends Tile {
 
-    public TileGrass(int x, int y, World world) {
-        super(grassId, 10, x, y, world, "grass");
-    }
+	int tick = 0;
 
-    public void tick() {
+	public TileGrass(int x, int y, World world) {
+		super(grassId, 10, x, y, world, "grass");
+	}
 
-    }
+	public void tick() {
+		tick++;
+		if (tick >= 6000) tick = 0;
 
-    public void render(Screen screen) {
-        int xx = pos.getX() << 4;
-        int yy = pos.getY() << 4;
-        screen.render(sheet, 0, 0, 16, xx, yy, true, 0);
-    }
+		if (tick % 600 == 0) {
+			boolean u = world.getTile(pos.getX(), pos.getY() - 1).id == dirtId;
+			boolean d = world.getTile(pos.getX(), pos.getY() + 1).id == dirtId;
+			boolean l = world.getTile(pos.getX() - 1, pos.getY()).id == dirtId;
+			boolean r = world.getTile(pos.getX() + 1, pos.getY()).id == dirtId;
 
-    public void die() {
-        super.die();
-        world.setTile(dirtId, pos.getX(), pos.getY());
-    }
+			if (u && (random.nextInt(10)) == 0) {
+				world.setTile(grassId, pos.getX(), pos.getY() - 1);
+			}
+			if (d && (random.nextInt(10)) == 0) {
+				world.setTile(grassId, pos.getX(), pos.getY() + 1);
+			}
+			if (l && (random.nextInt(10)) == 0) {
+				world.setTile(grassId, pos.getX() - 1, pos.getY());
+			}
+			if (r && (random.nextInt(10)) == 0) {
+				world.setTile(grassId, pos.getX() + 1, pos.getY());
+			}
+		}
+	}
+
+	public void render(Screen screen) {
+		int xx = pos.getX() << 4;
+		int yy = pos.getY() << 4;
+		screen.render(sheet, 0, 0, 16, xx, yy, true, 0);
+	}
+
+	public void die() {
+		super.die();
+		world.setTile(dirtId, pos.getX(), pos.getY());
+	}
 }

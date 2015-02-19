@@ -39,10 +39,10 @@ public abstract class World {
 		addEntity(new Player(100, 100, this, input));
 		r = new Random();
 		generateWorld();
-		tiles[100 >> 4][100 >> 4] = Tile.createTile(Tile.grassId, 100 >> 4, (100 >> 4), this);
-		tiles[(100 >> 4) + 1][100 >> 4] = Tile.createTile(Tile.grassId, (100 >> 4) + 1, 100 >> 4, this);
-		tiles[100 >> 4][(100 >> 4) + 1] = Tile.createTile(Tile.grassId, 100 >> 4, (100 >> 4) + 1, this);
-		tiles[(100 >> 4) + 1][(100 >> 4) + 1] = Tile.createTile(Tile.grassId, (100 >> 4) + 1, (100 >> 4) + 1, this);
+		setTile(Tile.grassId, 6, 6);
+		setTile(Tile.grassId, 7, 6);
+		setTile(Tile.grassId, 6, 7);
+		setTile(Tile.grassId, 7, 7);
 		addEntity(new ParticleItemPickup(100, 120, this, new ItemStack(Item.WOOD, Item.WOOD.getMaxStackSize())));
 	}
 

@@ -71,7 +71,7 @@ public class TileTree extends Tile {
     }
 
     public void onDeath() {
-        dropItem(1, 3, Item.WOOD);
+        dropItem(1, 4, Item.WOOD);
     }
 
     public void die() {

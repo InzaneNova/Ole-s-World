@@ -48,8 +48,8 @@ public class OnlinePlayers {
             }
         }
 
-        int xx = (int) xPos - 8;
-        int yy = (int) yPos - 8;
+        int xx = xPos - 8;
+        int yy = yPos - 8;
         screen.render(SpriteSheet.mobs, pixelX[0], frame * 2, 8, xx, yy, true, effect);
         screen.render(SpriteSheet.mobs, pixelX[1], frame * 2, 8, xx + 8, yy, true, effect);
         screen.render(SpriteSheet.mobs, pixelX[2], 1 + frame * 2, 8, xx, yy + 8, true, effect);

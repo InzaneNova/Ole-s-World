@@ -1,8 +1,8 @@
 package no.Strohm.game2D.entity.mob;
 
-import no.Strohm.game2D.Game;
 import no.Strohm.game2D.InputHandler;
 import no.Strohm.game2D.Multiplayer.Client;
+import no.Strohm.game2D.Multiplayer.OnlinePlayers;
 import no.Strohm.game2D.containers.ChestContainer;
 import no.Strohm.game2D.containers.Inventory;
 import no.Strohm.game2D.containers.ItemContainer;
@@ -43,12 +43,14 @@ public class Player extends Mob {
 	}
 
 	public void tick() {
-        if(true){
-            try {
-                String pos = "setPlayerStat;"+Client.gameTag+";"+this.pos.getX()+";"+this.pos.getY()+";"+moving+";"+anim+";"+dir+";";
-                Client.dataOutputStream.writeUTF(pos);
-            } catch (IOException e) {}
-        }
+		if (OnlinePlayers.onlineOn) {
+			try {
+				String pos = "setPlayerStat;" + Client.gameTag + ";" + this.pos.getX() + ";" + this.pos.getY() + ";" + moving + ";" + anim + ";" + dir + ";";
+				Client.dataOutputStream.writeUTF(pos);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		if (moveTimer > 0) moveTimer--;
 		if (!containerOpen) {
 			double xm = 0;
@@ -176,7 +178,7 @@ public class Player extends Mob {
 			container = null;
 		}
 
-    }
+	}
 
 	public void render(Screen screen) {
 		int[] pixelX = {0, 1, 0, 1};
