@@ -125,7 +125,7 @@ public class Server extends Thread{
 
     public void run(){
         try {
-            if(dataInputStream.readUTF().equals(Game.version)){
+            if(dataInputStream.readUTF().equals(Game.VERSION)){
                 dataOutputStream.writeUTF("version ok");
                 String gameTagBuffer;
                 gameTagBuffer = dataInputStream.readUTF();
