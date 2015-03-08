@@ -4,6 +4,7 @@ import no.Strohm.game2D.InputHandler;
 import no.Strohm.game2D.entity.Entity;
 import no.Strohm.game2D.entity.Spawner;
 import no.Strohm.game2D.entity.blocks.Block;
+import no.Strohm.game2D.entity.blocks.BlockChest;
 import no.Strohm.game2D.entity.mob.Mob;
 import no.Strohm.game2D.entity.mob.Player;
 import no.Strohm.game2D.entity.particles.ParticleItemPickup;

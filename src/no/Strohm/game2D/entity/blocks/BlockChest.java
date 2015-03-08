@@ -19,6 +19,6 @@ public class BlockChest extends ContainerBlock {
     }
 
     public void render(Screen screen) {
-        screen.render(SpriteSheet.tiles, 0, 10, 16, (int) getPos().getX(), (int) getPos().getY(), false, 0);
+        screen.render(SpriteSheet.tiles, 0, 10, 16, (int) getPos().getX(), (int) getPos().getY(), true, 0);
     }
 }

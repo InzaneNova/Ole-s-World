@@ -7,11 +7,13 @@ import no.Strohm.game2D.graphics.Screen;
 import no.Strohm.game2D.state.State;
 import no.Strohm.game2D.util.FPS;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.io.IOException;
 
 /**
  * Created by Ole on 13/12/13.
@@ -48,6 +50,12 @@ public class Game extends Canvas implements Runnable {
 		game.frame.pack();
 		game.frame.setLocationRelativeTo(null);
 		game.frame.setVisible(true);
+
+		try {
+			game.frame.setIconImage(ImageIO.read(Game.class.getResourceAsStream("/textures/icon.png")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		game.start();
 	}
