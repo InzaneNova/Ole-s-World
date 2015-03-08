@@ -1,18 +1,16 @@
 package no.Strohm.game2D;
 
 import no.Strohm.game2D.Multiplayer.Client;
-import no.Strohm.game2D.Multiplayer.OnlinePlayers;
 import no.Strohm.game2D.Multiplayer.Server;
 import no.Strohm.game2D.graphics.Screen;
+import no.Strohm.game2D.graphics.SpriteSheet;
 import no.Strohm.game2D.state.State;
 import no.Strohm.game2D.util.FPS;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferInt;
+import java.awt.image.*;
 import java.io.IOException;
 
 /**
@@ -21,16 +19,16 @@ import java.io.IOException;
 public class Game extends Canvas implements Runnable {
 
 	public static final String TITLE = "Ole's World", version = "da1.0.2";
-    public static Server server;
-    public static Client client;
-    public static boolean Online = false;
+	public static Server server;
+	public static Client client;
+	public static boolean Online = false;
 	public static int SCALE = 4;
 	public static int WIDTH = 1280 / SCALE;
 	public static int HEIGHT = (WIDTH / 16) * 10;
-    public static int mapHeight = 10, mapWidth = 10;
+	public static int mapHeight = 10, mapWidth = 10;
+	private static boolean running = false;
 	private Dimension d = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
 	private BufferedImage img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-	private static boolean running = false;
 	private JFrame frame;
 	private InputHandler input;
 	private Screen screen;
@@ -51,11 +49,41 @@ public class Game extends Canvas implements Runnable {
 		game.frame.setLocationRelativeTo(null);
 		game.frame.setVisible(true);
 
+//		Image icon = game.createImage(new ImageProducer() {
+//			@Override
+//			public void addConsumer(ImageConsumer ic) {
+//			}
+//
+//			@Override
+//			public boolean isConsumer(ImageConsumer ic) {
+//				return true;
+//			}
+//
+//			@Override
+//			public void removeConsumer(ImageConsumer ic) {
+//			}
+//
+//			@Override
+//			public void startProduction(ImageConsumer ic) {
+//				ic.setDimensions(16, 16);
+//				ic.setPixels(0, 0, 16, 16, ColorModel.getRGBdefault(), SpriteSheet.mobs.pixels, 32 + 32 * 256, 256);
+//				ic.imageComplete(0);
+//				System.out.println("Done.");
+//			}
+//
+//			@Override
+//			public void requestTopDownLeftRightResend(ImageConsumer ic) {
+//
+//			}
+//		});
+
 		try {
 			game.frame.setIconImage(ImageIO.read(Game.class.getResourceAsStream("/textures/icon.png")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		System.out.println("Hello?");
 
 		game.start();
 	}
