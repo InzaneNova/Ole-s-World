@@ -30,7 +30,7 @@ public class Client extends Thread{
             System.out.println("CLIENT: Checking for room");
             if(dataInputStream.readUTF().equals("room")){
                 System.out.println("CLIENT: Found room on server");
-                dataOutputStream.writeUTF(Game.version);
+                dataOutputStream.writeUTF(Game.VERSION);
                 if(dataInputStream.readUTF().equals("version ok")){
                     System.out.println("CLIENT: Version ok");
                     dataOutputStream.writeUTF(gameTag);

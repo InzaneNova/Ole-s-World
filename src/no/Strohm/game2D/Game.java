@@ -18,7 +18,8 @@ import java.io.IOException;
  */
 public class Game extends Canvas implements Runnable {
 
-	public static final String TITLE = "Ole's World", version = "da1.0.2";
+	public static final String TITLE = "Ole's World", VERSION = "a1.01.8";
+	public static final boolean DEV = true;
 	public static Server server;
 	public static Client client;
 	public static boolean Online = false;
@@ -65,15 +66,13 @@ public class Game extends Canvas implements Runnable {
 //
 //			@Override
 //			public void startProduction(ImageConsumer ic) {
-//				ic.setDimensions(16, 16);
-//				ic.setPixels(0, 0, 16, 16, ColorModel.getRGBdefault(), SpriteSheet.mobs.pixels, 32 + 32 * 256, 256);
-//				ic.imageComplete(0);
-//				System.out.println("Done.");
 //			}
 //
 //			@Override
 //			public void requestTopDownLeftRightResend(ImageConsumer ic) {
-//
+//				ic.setDimensions(16, 16);
+//				ic.setPixels(0, 0, 16, 16, ColorModel.getRGBdefault(), SpriteSheet.mobs.pixels, 32 + 32 * 256, 256);
+//				ic.imageComplete();
 //			}
 //		});
 
