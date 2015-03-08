@@ -1,32 +1,28 @@
-package no.Strohm.game2D;
+package no.Strohm.game2D.world;
 
-import no.Strohm.game2D.Multiplayer.Client;
-import no.Strohm.game2D.Multiplayer.Server;
+import no.Strohm.game2D.Game;
+import no.Strohm.game2D.InputHandler;
 import no.Strohm.game2D.graphics.Screen;
-import no.Strohm.game2D.graphics.SpriteSheet;
 import no.Strohm.game2D.state.State;
 import no.Strohm.game2D.util.FPS;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.*;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 import java.io.IOException;
 
 /**
- * Created by Ole on 13/12/13.
+ * Created by Ole on 08/03/2015.
  */
-public class Game extends Canvas implements Runnable {
+public class Launcher extends Canvas implements Runnable {
 
-	public static final String TITLE = "Ole's World Launcher", VERSION = "a1.01.9";
-	public static final boolean DEV = true;
-	public static Server server;
-	public static Client client;
-	public static boolean Online = false;
+	public static final String TITLE = "Ole's World Launcher";
 	public static int SCALE = 4;
 	public static int WIDTH = 1280 / SCALE;
 	public static int HEIGHT = (WIDTH / 16) * 10;
-	public static int mapHeight = 10, mapWidth = 10;
 	private static boolean running = false;
 	private Dimension d = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
 	private BufferedImage img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -36,31 +32,27 @@ public class Game extends Canvas implements Runnable {
 	private int[] pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
 
 	public static void main(String[] args) {
-		Game game = new Game();
-		game.setPreferredSize(game.d);
-		game.setMinimumSize(game.d);
-		game.setMaximumSize(game.d);
+		Launcher launcher = new Launcher();
+		launcher.setPreferredSize(launcher.d);
+		launcher.setMinimumSize(launcher.d);
+		launcher.setMaximumSize(launcher.d);
 
-		game.frame = new JFrame(Game.TITLE);
-		game.frame.setUndecorated(false);
-		game.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		game.frame.setResizable(false);
-		game.frame.add(game);
-		game.frame.pack();
-		game.frame.setLocationRelativeTo(null);
-		game.frame.setVisible(true);
+		launcher.frame = new JFrame(Game.TITLE);
+		launcher.frame.setUndecorated(false);
+		launcher.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		launcher.frame.setResizable(false);
+		launcher.frame.add(launcher);
+		launcher.frame.pack();
+		launcher.frame.setLocationRelativeTo(null);
+		launcher.frame.setVisible(true);
 
 		try {
-			game.frame.setIconImage(ImageIO.read(Game.class.getResourceAsStream("/textures/icon2.png")));
+			launcher.frame.setIconImage(ImageIO.read(Game.class.getResourceAsStream("/textures/icon2.png")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		game.start();
-	}
-
-	public static void stop() {
-		running = false;
+		launcher.start();
 	}
 
 	public synchronized void start() {
@@ -140,4 +132,5 @@ public class Game extends Canvas implements Runnable {
 		g.dispose();
 		bs.show();
 	}
+
 }
