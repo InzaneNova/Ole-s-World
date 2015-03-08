@@ -18,7 +18,7 @@ import java.io.IOException;
  */
 public class Game extends Canvas implements Runnable {
 
-	public static final String TITLE = "Ole's World", VERSION = "a1.01.8";
+	public static final String TITLE = "Ole's World", VERSION = "a1.01.9";
 	public static final boolean DEV = true;
 	public static Server server;
 	public static Client client;
@@ -50,39 +50,11 @@ public class Game extends Canvas implements Runnable {
 		game.frame.setLocationRelativeTo(null);
 		game.frame.setVisible(true);
 
-//		Image icon = game.createImage(new ImageProducer() {
-//			@Override
-//			public void addConsumer(ImageConsumer ic) {
-//			}
-//
-//			@Override
-//			public boolean isConsumer(ImageConsumer ic) {
-//				return true;
-//			}
-//
-//			@Override
-//			public void removeConsumer(ImageConsumer ic) {
-//			}
-//
-//			@Override
-//			public void startProduction(ImageConsumer ic) {
-//			}
-//
-//			@Override
-//			public void requestTopDownLeftRightResend(ImageConsumer ic) {
-//				ic.setDimensions(16, 16);
-//				ic.setPixels(0, 0, 16, 16, ColorModel.getRGBdefault(), SpriteSheet.mobs.pixels, 32 + 32 * 256, 256);
-//				ic.imageComplete();
-//			}
-//		});
-
 		try {
-			game.frame.setIconImage(ImageIO.read(Game.class.getResourceAsStream("/textures/icon.png")));
+			game.frame.setIconImage(ImageIO.read(Game.class.getResourceAsStream("/textures/icon2.png")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		System.out.println("Hello?");
 
 		game.start();
 	}
