@@ -25,6 +25,7 @@ public class Game extends Canvas implements Runnable {
 	public static final String TITLE = "Ole's World", VERSION = "a1.01.9";
 	public static boolean DEV = false;
 	public static Server server;
+    public static ServerSocket isRunningSockets;
 	public static Client client;
 	public static boolean Online = false;
 	public static int SCALE = 4;
@@ -58,9 +59,9 @@ public class Game extends Canvas implements Runnable {
             }catch(Exception e){System.out.println(e);}
         }
 
-        if(true){
+        if(!DEV){
             try {
-                new ServerSocket(20163);
+                isRunningSockets = new ServerSocket(20163);
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null,"Seems like Oles World is already running","ERROR: 2",JOptionPane.PLAIN_MESSAGE);
                 System.exit(2);
