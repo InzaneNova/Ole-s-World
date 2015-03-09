@@ -26,7 +26,7 @@ public class Inventory extends ItemContainer {
 		InputHandler input = user.input;
 		boolean inInv = user.isInInv();
 
-		if (other instanceof ItemContainer) {
+		if (other != null && other instanceof ItemContainer) {
 			if (user.input.right) {
 				player.setInInv(false);
 			}
@@ -46,7 +46,7 @@ public class Inventory extends ItemContainer {
 					ItemStack stack = this.getSelectedItemStack();
 					this.removeSelectedItemStack();
 					container.addItem(stack.getItemInStackID(), stack.getAmount());
-					moveTimer = 20;
+					player.setMoveTimer(20);
 				} else if (input.attack && moveTimer <= 0) {
 					if (inInv && !this.isEmpty()) {
 						Item active = player.getActiveItem();
@@ -59,7 +59,7 @@ public class Inventory extends ItemContainer {
 							this.removeSelectedItems(1);
 						}
 					}
-					moveTimer = 20;
+					player.setMoveTimer(20);
 				}
 			} else {
 				container.tick();
@@ -67,9 +67,9 @@ public class Inventory extends ItemContainer {
 					ItemStack stack = container.getSelectedItemStack();
 					container.removeSelectedItemStack();
 					this.addItem(stack.getItemInStackID(), stack.getAmount());
-					moveTimer = 20;
+					player.setMoveTimer(20);
 				} else if (input.attack && moveTimer <= 0) {
-					if (!inInv && container != null && !container.isEmpty()) {
+					if (!inInv && !container.isEmpty()) {
 						Item active = player.getActiveItem();
 						ItemStack stack = container.getSelectedItemStack();
 						if (Item.getItemByID(stack.getItemInStackID()) instanceof Usable) {
@@ -80,7 +80,7 @@ public class Inventory extends ItemContainer {
 							this.removeSelectedItems(1);
 						}
 					}
-					moveTimer = 20;
+					player.setMoveTimer(20);
 				}
 			}
 		} else {
@@ -99,13 +99,13 @@ public class Inventory extends ItemContainer {
 						this.removeSelectedItems(1);
 					}
 				}
-				moveTimer = 20;
+				player.setMoveTimer(20);
 			}
 		}
 
 		if (input.use && moveTimer <= 0) {
 			player.toggleOpen();
-			moveTimer = 30;
+			player.setMoveTimer(30);
 			this.setMoveTimer(moveTimer);
 			if (other != null) {
 				other.setMoveTimer(moveTimer);
