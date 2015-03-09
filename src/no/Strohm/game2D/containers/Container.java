@@ -31,6 +31,8 @@ public abstract class Container {
         return this;
     }
 
+	public void use(Container other, Player user) {}
+
     public void setFocus(boolean focused) {
         this.focused = focused;
     }

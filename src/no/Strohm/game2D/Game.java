@@ -3,7 +3,6 @@ package no.Strohm.game2D;
 import no.Strohm.game2D.Multiplayer.Client;
 import no.Strohm.game2D.Multiplayer.Server;
 import no.Strohm.game2D.graphics.Screen;
-import no.Strohm.game2D.graphics.SpriteSheet;
 import no.Strohm.game2D.state.State;
 import no.Strohm.game2D.util.FPS;
 

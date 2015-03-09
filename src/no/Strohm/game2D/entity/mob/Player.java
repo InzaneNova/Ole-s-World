@@ -88,95 +88,95 @@ public class Player extends Mob {
 			return;
 		}
 
-		if (container != null) {
-			if (input.right) {
-				inInv = false;
-			}
-			if (input.left) {
-				inInv = true;
-			}
-			if (inventory.isEmpty()) inInv = false;
-			else if (container.isEmpty()) inInv = true;
-			inventory.setFocus(inInv);
-			container.setFocus(!inInv);
+//		if (container != null) {
+//			if (input.right) {
+//				inInv = false;
+//			}
+//			if (input.left) {
+//				inInv = true;
+//			}
+//			if (inventory.isEmpty()) inInv = false;
+//			else if (container.isEmpty()) inInv = true;
+//			inventory.setFocus(inInv);
+//			container.setFocus(!inInv);
+//
+//			if (inInv) {
+//				inventory.tick();
+//
+//				if (input.enter && !inventory.isEmpty() && moveTimer <= 0) {
+//					ItemStack stack = inventory.getSelectedItemStack();
+//					inventory.removeSelectedItemStack();
+//					container.addItem(stack.getItemInStackID(), stack.getAmount());
+//					moveTimer = 20;
+//				} else if (input.attack && moveTimer <= 0) {
+//					if (inInv && !inventory.isEmpty()) {
+//						Item active = getActiveItem();
+//						ItemStack stack = inventory.getSelectedItemStack();
+//						if (Item.getItemByID(stack.getItemInStackID()) instanceof Usable) {
+//							if (active != Item.FIST) {
+//								inventory.addItem(active, 1);
+//							}
+//							setActiveItem(Item.getItemByID(stack.getItemInStackID()));
+//							inventory.removeSelectedItems(1);
+//						}
+//					}
+//					moveTimer = 20;
+//				}
+//			} else {
+//				container.tick();
+//				if (input.enter && !container.isEmpty() && moveTimer <= 0) {
+//					ItemStack stack = container.getSelectedItemStack();
+//					container.removeSelectedItemStack();
+//					inventory.addItem(stack.getItemInStackID(), stack.getAmount());
+//					moveTimer = 20;
+//				} else if (input.attack && moveTimer <= 0) {
+//					if (!inInv && container != null && !container.isEmpty()) {
+//						Item active = getActiveItem();
+//						ItemStack stack = container.getSelectedItemStack();
+//						if (Item.getItemByID(stack.getItemInStackID()) instanceof Usable) {
+//							if (active != Item.FIST) {
+//								container.addItem(active, 1);
+//							}
+//							setActiveItem(Item.getItemByID(stack.getItemInStackID()));
+//							inventory.removeSelectedItems(1);
+//						}
+//					}
+//					moveTimer = 20;
+//				}
+//			}
+//		} else {
+//			inInv = true;
+//			inventory.setFocus(true);
+//			inventory.tick();
+//			if (input.attack && moveTimer <= 0) {
+//				if (inInv && !inventory.isEmpty()) {
+//					Item active = getActiveItem();
+//					ItemStack stack = inventory.getSelectedItemStack();
+//					if (Item.getItemByID(stack.getItemInStackID()) instanceof Usable) {
+//						if (active != Item.FIST) {
+//							inventory.addItem(active, 1);
+//						}
+//						setActiveItem(Item.getItemByID(stack.getItemInStackID()));
+//						inventory.removeSelectedItems(1);
+//					}
+//				}
+//				moveTimer = 20;
+//			}
+//		}
 
-			if (inInv) {
-				inventory.tick();
-
-				if (input.enter && !inventory.isEmpty() && moveTimer <= 0) {
-					ItemStack stack = inventory.getSelectedItemStack();
-					inventory.removeSelectedItemStack();
-					container.addItem(stack.getItemInStackID(), stack.getAmount());
-					moveTimer = 20;
-				} else if (input.attack && moveTimer <= 0) {
-					if (inInv && !inventory.isEmpty()) {
-						Item active = getActiveItem();
-						ItemStack stack = inventory.getSelectedItemStack();
-						if (Item.getItemByID(stack.getItemInStackID()) instanceof Usable) {
-							if (active != Item.FIST) {
-								inventory.addItem(active, 1);
-							}
-							setActiveItem(Item.getItemByID(stack.getItemInStackID()));
-							inventory.removeSelectedItems(1);
-						}
-					}
-					moveTimer = 20;
-				}
-			} else {
-				container.tick();
-				if (input.enter && !container.isEmpty() && moveTimer <= 0) {
-					ItemStack stack = container.getSelectedItemStack();
-					container.removeSelectedItemStack();
-					inventory.addItem(stack.getItemInStackID(), stack.getAmount());
-					moveTimer = 20;
-				} else if (input.attack && moveTimer <= 0) {
-					if (!inInv && container != null && !container.isEmpty()) {
-						Item active = getActiveItem();
-						ItemStack stack = container.getSelectedItemStack();
-						if (Item.getItemByID(stack.getItemInStackID()) instanceof Usable) {
-							if (active != Item.FIST) {
-								container.addItem(active, 1);
-							}
-							setActiveItem(Item.getItemByID(stack.getItemInStackID()));
-							inventory.removeSelectedItems(1);
-						}
-					}
-					moveTimer = 20;
-				}
-			}
-		} else {
-			inInv = true;
-			inventory.setFocus(true);
-			inventory.tick();
-			if (input.attack && moveTimer <= 0) {
-				if (inInv && !inventory.isEmpty()) {
-					Item active = getActiveItem();
-					ItemStack stack = inventory.getSelectedItemStack();
-					if (Item.getItemByID(stack.getItemInStackID()) instanceof Usable) {
-						if (active != Item.FIST) {
-							inventory.addItem(active, 1);
-						}
-						setActiveItem(Item.getItemByID(stack.getItemInStackID()));
-						inventory.removeSelectedItems(1);
-					}
-				}
-				moveTimer = 20;
-			}
-		}
-
-		if (input.use && moveTimer <= 0) {
-			toggleOpen();
-			moveTimer = 30;
-			inventory.setMoveTimer(moveTimer);
-			if (container != null) {
-				container.setMoveTimer(moveTimer);
-				container.setFocus(false);
-				container.setPlayer(null);
-			}
-			inInv = true;
-			inventory.setFocus(true);
-			container = null;
-		}
+//		if (input.use && moveTimer <= 0) {
+//			toggleOpen();
+//			moveTimer = 30;
+//			inventory.setMoveTimer(moveTimer);
+//			if (container != null) {
+//				container.setMoveTimer(moveTimer);
+//				container.setFocus(false);
+//				container.setPlayer(null);
+//			}
+//			inInv = true;
+//			inventory.setFocus(true);
+//			container = null;
+//		}
 
 	}
 
@@ -262,5 +262,17 @@ public class Player extends Mob {
 
 	public Inventory getInventory() {
 		return inventory;
+	}
+
+	public boolean isInInv() {
+		return isInInv();
+	}
+
+	public void setInInv(boolean inInv) {
+		this.inInv = inInv;
+	}
+
+	public void exitContainer() {
+		container = null;
 	}
 }

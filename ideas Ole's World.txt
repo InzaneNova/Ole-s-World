@@ -11,11 +11,10 @@
 - Better system for item usages (flags for every item type)
 - Items deal more/less damage to tiles and monsters (tools, weapons)
 - Interact with tiles (switches, doors, lava)
-- Multitile building (houses)
+- Multi-tile buildings (houses)
 - Tile interact with the world (grass grows to dirt tiles, water flows into hole tiles)
 
-- Items:
+==Items==
 + interface for usable
 - magic
 - sword attributes
-- 
