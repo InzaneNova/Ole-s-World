@@ -2,7 +2,6 @@
 ## Eclipse
 #################
 
-workspace.xml
 *.pydevproject
 .project
 .metadata
