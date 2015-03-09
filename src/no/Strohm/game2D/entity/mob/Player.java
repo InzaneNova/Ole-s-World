@@ -88,6 +88,8 @@ public class Player extends Mob {
 			return;
 		}
 
+		inventory.use(container, this);
+
 //		if (container != null) {
 //			if (input.right) {
 //				inInv = false;
@@ -265,7 +267,7 @@ public class Player extends Mob {
 	}
 
 	public boolean isInInv() {
-		return isInInv();
+		return inInv;
 	}
 
 	public void setInInv(boolean inInv) {
@@ -274,5 +276,9 @@ public class Player extends Mob {
 
 	public void exitContainer() {
 		container = null;
+	}
+
+	public void setMoveTimer(int moveTimer) {
+		this.moveTimer = moveTimer;
 	}
 }
