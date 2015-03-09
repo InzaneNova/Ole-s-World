@@ -58,7 +58,7 @@ public class Game extends Canvas implements Runnable {
             }catch(Exception e){System.out.println(e);}
         }
 
-        if(!DEV){
+        if(true){
             try {
                 new ServerSocket(20163);
             }catch(Exception e){
