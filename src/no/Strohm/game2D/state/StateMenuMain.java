@@ -24,11 +24,14 @@ public class StateMenuMain extends StateMenu {
 	protected void press() {
 		switch (selected) {
 			case 0:
-                setState(gameId);
+				setState(gameId);
 				break;
 			case 1:
-				//options[1] = "Multiplayer doesn't work";
-				setState(multiplayerId);
+				if (!Game.DEV) {
+					options[1] = "Multiplayer doesn't work";
+				} else {
+					setState(multiplayerId);
+				}
 				break;
 			case 2:
 				setState(instructionsId);
