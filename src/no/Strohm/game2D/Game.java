@@ -11,7 +11,12 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.net.ServerSocket;
+import java.util.Scanner;
 
 /**
  * Created by Ole on 13/12/13.
@@ -36,6 +41,34 @@ public class Game extends Canvas implements Runnable {
 	private int[] pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
 
 	public static void main(String[] args) {
+        boolean dev = false;
+        String f = System.getProperty("user.home") + "\\AppData\\roaming\\.Ole-s-World";
+        if(!new File(f).exists()){
+            new File(f).mkdir();
+        }
+        f += "\\settings.txt";
+        if(new File(f).exists()){
+            System.out.println("Shit is there: "+f);
+            try {
+                Scanner s = new Scanner(new File(f));
+                if(s.nextLine().equals("1")){
+                    System.out.println("Shit got changed: "+f);
+                    dev = true;
+                }else{
+                    dev = false;
+                }
+            }catch(Exception e){System.out.println(e);}
+        }
+
+        if(!dev){
+            try {
+                new ServerSocket(20163);
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null,"Seems like Oles World is already running","ERROR: 2",JOptionPane.PLAIN_MESSAGE);
+                System.exit(2);
+            }
+        }
+
 		Game game = new Game();
 		game.setPreferredSize(game.d);
 		game.setMinimumSize(game.d);
