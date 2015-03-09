@@ -22,7 +22,7 @@ import java.util.Scanner;
  */
 public class Game extends Canvas implements Runnable {
 
-	public static final String TITLE = "Ole's World Launcher", VERSION = "a1.01.9";
+	public static final String TITLE = "Ole's World", VERSION = "a1.01.9";
 	public static boolean DEV = false;
 	public static Server server;
 	public static Client client;
