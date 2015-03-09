@@ -107,10 +107,10 @@ public class Inventory extends ItemContainer {
 			player.toggleOpen();
 			moveTimer = 30;
 			this.setMoveTimer(moveTimer);
-			if (container != null) {
-				container.setMoveTimer(moveTimer);
-				container.setFocus(false);
-				container.setPlayer(null);
+			if (other != null) {
+				other.setMoveTimer(moveTimer);
+				other.setFocus(false);
+				other.setPlayer(null);
 			}
 			player.setInInv(true);
 			this.setFocus(true);
