@@ -23,7 +23,7 @@ import java.util.Scanner;
 public class Game extends Canvas implements Runnable {
 
 	public static final String TITLE = "Ole's World Launcher", VERSION = "a1.01.9";
-	public static final boolean DEV = true;
+	public static boolean DEV = false;
 	public static Server server;
 	public static Client client;
 	public static boolean Online = false;
@@ -40,7 +40,6 @@ public class Game extends Canvas implements Runnable {
 	private int[] pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
 
 	public static void main(String[] args) {
-        boolean dev = false;
         String f = System.getProperty("user.home") + "\\AppData\\roaming\\.Ole-s-World";
         if(!new File(f).exists()){
             new File(f).mkdir();
@@ -52,14 +51,14 @@ public class Game extends Canvas implements Runnable {
                 Scanner s = new Scanner(new File(f));
                 if(s.nextLine().equals("1")){
                     System.out.println("Shit got changed: "+f);
-                    dev = true;
+                    DEV = true;
                 }else{
-                    dev = false;
+                    DEV = false;
                 }
             }catch(Exception e){System.out.println(e);}
         }
 
-        if(!dev){
+        if(!DEV){
             try {
                 new ServerSocket(20163);
             }catch(Exception e){
